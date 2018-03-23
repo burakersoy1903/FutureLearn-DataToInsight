@@ -1,15 +1,131 @@
 Week 01 -- 03232018 ------------------------------------------------------------
 Introduction -------------------------------------------------------------------
-1.1 Course introduction ----------
+--- 1.1 Course introduction ----------
 Chris quote: "Diving into data"
 iNZight -- https://www.stat.auckland.ac.nz/~wild/iNZight/index.php
-1.2 About this course ----------
+--- 1.2 About this course ----------
 You create visual representations of data, usually in the iNZight software.
 Discussion about specified topics, such as possible interpretations of statistical data.
 Lead educator, Chris Wild, (https://www.stat.auckland.ac.nz/~wild)
 Educator, Tracey Meek,
 Educator, Mike Forster,
 Technology mentor, Tom Elliott.(http://tomelliott.co.nz)(inzight_support@auckland.ac.nz)
-1.3 How to use FutureLearn ----------
+--- 1.3 How to use FutureLearn ----------
 Follow teachers
-1.4 Welcome - please introduce yourself ----------
+--- 1.4 Welcome - please introduce yourself ----------
+Howdy, y'all! This is Burak Ersoy. I live in Texas, USA; however, I am from Turkey originally. I work as a business clinical analyst at a children's hospital and I hold a MSc. in Computer Science. With that being said, I am not new in data analytics or technology, but I am new in R and medical statistics. I am very excited to see examples with health data and ready to learn new approaches through this Data to Insight challenge. Thank you!
+--- 1.5 How do we use data analysis? ----------
+So statistics lets us give an air of objectivity rather than just an opinion.
+Even hospitals make clever use of data to cut costs and to keep patients moving through the system. We used data analysis to help the heart unit at Auckland City Hospital fix a bottleneck in their system. This bottleneck was causing nearly 30% of elective heart surgeries to be cancelled at the very last minute. And this wasn't just costly for the hospital, but was also very, very stressful for patients and their families. So we built a model of the patient flow through the intensive-care unit. And we fed into this model all kinds of data: the data of the arrival times of patients, the kind of treatment they needed, how long they spent in the unit. And then also staff rosters and the schedules for elective surgery. And then we used this model to simulate all kinds of "what if?" scenarios-- a whole range of them-- to see what the best way would be to reduce cancellations. The hospital then made some changes and the cancellation rate fell from nearly 30% to 10%.
+--- 1.6 The place of data analysis in problem solving ----------
+Check "Images\ppdac.png"
+The PPDAC model: Problem, Plan, Data, Analysis, Conclusions
+A knowledge-based solution to the real problem requires better understanding of how some things work.
+“whipping it into shape” (data cleaning)
+The Problem step is about trying to turn these vague feelings into much more precise goals, some very specific questions that should be able to be answered using data.
+The formation of conclusions typically involves the analyst and a subject-matter expert (e.g. someone who understands the business) who will “own” the conclusions.
+This article has been about purpose-collected data.
+Check "Articles\1.6-Statistical Thinking in Empirical Enquiry.pdf" --Original PPDAC model article
+Check "Articles\1.6-Place of data analysis in problem solving.pdf"
+--- 1.7 Datasets for Data to Insight ----------
+“Garbage in, Garbage out” is a standard catch-phrase in information-technology and it certainly applies to statistical data analysis today.
+The main datasets for this course are NHANES and Gapminder.
+NHANES: National Health and Nutrition Examination Survey (https://www.cdc.gov/nchs/nhanes/index.htm)
+Gapminder: (https://www.gapminder.org/) (https://www.gapminder.org/data/)
+Check "Articles\1.7-gapminder-dataset-overview.pdf"
+Check "Articles\1.7-NHANES 2009_2012.pdf"
+Datasets in csv format (https://www.stat.auckland.ac.nz/~wild/data/FutureLearn/)
+Datasets in tab-delimited text format (https://www.stat.auckland.ac.nz/~wild/data/FutureLearn_TabTxt/)
+Also available in Datasets folder
+--- 1.8 Data visualisation ----------
+The Joy of Stats: (https://www.gapminder.org/videos/the-joy-of-stats/)
+--- 1.9 Introduction to iNZight and iNZight Lite  ----------
+To gain insights into the real world using data you need to produce graphs and summaries using statistical data-analysis software.
+--- 1.10 Exercise - Install iNZight  ----------
+Check "Articles\1.10-exercise-install-R_17.pdf"
+Check "100-InstallTheRPackages.R"
+iNZight Lite: (http://lite.docker.stat.auckland.ac.nz/)
+iNZight GitHub: (https://github.com/iNZightVIT)
+iNZight User Guides: (https://www.stat.auckland.ac.nz/~wild/iNZight/user_guides/)
+package ‘rematch’ successfully unpacked and MD5 sums checked
+package ‘rlang’ successfully unpacked and MD5 sums checked
+package ‘hms’ successfully unpacked and MD5 sums checked
+package ‘cellranger’ successfully unpacked and MD5 sums checked
+package ‘tidyselect’ successfully unpacked and MD5 sums checked
+package ‘objectSignals’ successfully unpacked and MD5 sums checked
+package ‘gtools’ successfully unpacked and MD5 sums checked
+package ‘memoise’ successfully unpacked and MD5 sums checked
+package ‘readr’ successfully unpacked and MD5 sums checked
+package ‘readxl’ successfully unpacked and MD5 sums checked
+package ‘forcats’ successfully unpacked and MD5 sums checked
+package ‘tidyr’ successfully unpacked and MD5 sums checked
+package ‘SparseM’ successfully unpacked and MD5 sums checked
+package ‘MatrixModels’ successfully unpacked and MD5 sums checked
+package ‘FNN’ successfully unpacked and MD5 sums checked
+package ‘gridExtra’ successfully unpacked and MD5 sums checked
+package ‘XML’ successfully unpacked and MD5 sums checked
+package ‘objectProperties’ successfully unpacked and MD5 sums checked
+package ‘RGtk2’ successfully unpacked and MD5 sums checked
+package ‘gWidgets2’ successfully unpacked and MD5 sums checked
+package ‘cairoDevice’ successfully unpacked and MD5 sums checked
+package ‘gdata’ successfully unpacked and MD5 sums checked
+package ‘gWidgets2RGtk2’ successfully unpacked and MD5 sums checked
+package ‘s20x’ successfully unpacked and MD5 sums checked
+package ‘survey’ successfully unpacked and MD5 sums checked
+package ‘quantreg’ successfully unpacked and MD5 sums checked
+package ‘hexbin’ successfully unpacked and MD5 sums checked
+package ‘hextri’ successfully unpacked and MD5 sums checked
+package ‘viridis’ successfully unpacked and MD5 sums checked
+package ‘gridSVG’ successfully unpacked and MD5 sums checked
+--- 1.11 Using iNZight Lite  ----------
+iNZight Lite is a web-application that runs over the internet and does not need to be installed. It will run on tablets. The user interface for iNZight Lite is rather different from that for iNZight.
+--- 1.12 Data organisation  ----------
+[Comments] I guess in databases, entities are represented in a form of tables during implementation as you said but during design they are referred to as entities in the Entity-Relationship Diagram or Objects if you are using Object-Oriented approach.
+Rows and Cells vs. Entities vs Variables (statistical term)
+Column header
+Data Organisation Format: Rectangular data
+Gaps in the data
+Missing Value: NULL or NA in iNZight
+Different programmes have different default missing-value code conventions.
+Numeric Variables vs Categorical Variables (defining groups)
+--- 1.13 Week 1 glossary  ----------
+Frequency: The number of times a value of a variable, or a category, occurs. (Alternative names: count, tally.)
+--- 1.14 Using your own data  ----------
+Some general data preparation rules (10 items)
+10. Remove units from data, e.g. 5 years/5 yrs/5yr should all be just 5 and $10 is just 10
+--- 1.15 Exercise - Load data into iNZight  ----------
+Check "Articles\1.15-exercise-import-data-into-R_17.pdf"
+Check "100-InstallTheRPackages.R"
+--- 1.16 Data Organisation Quiz  ----------
+Question 1: We arrange our data in a rectangular format where the entities (or individuals) data is being recorded for correspond to the rowsand the variables (or properties being recorded for those entities) correspond to the columns.
+Question 2: We collect and analyse data so we can get insight into a problem of interest, make informed decisions rather than guess, and understand what could happen.
+Question 3: The missing value in the red dotted circle should be recorded as a 0 or a space. This statement is FALSE – We should represent a missing value using a special code (e.g. NA for iNZight) or the cell should be entirely empty.
+Question 4: AgeDecade is a numeric variable. This statement is FALSE – AgeDecade is a categorical variable because age has been divided up into age groups.
+--- 1.17 Weekly Reflections  ----------
+Nice comments! :D
+First week done!
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

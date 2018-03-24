@@ -41,7 +41,7 @@ Also available in Datasets folder
 The Joy of Stats: (https://www.gapminder.org/videos/the-joy-of-stats/)
 --- 1.9 Introduction to iNZight and iNZight Lite  ----------
 To gain insights into the real world using data you need to produce graphs and summaries using statistical data-analysis software.
---- 1.10 Exercise - Install iNZight  ----------
+--- 1.10 Exercise - Install iNZight ----------
 Check "Articles\1.10-exercise-install-R_17.pdf"
 Check "100-InstallTheRPackages.R"
 iNZight Lite: (http://lite.docker.stat.auckland.ac.nz/)
@@ -77,9 +77,9 @@ package ‘hexbin’ successfully unpacked and MD5 sums checked
 package ‘hextri’ successfully unpacked and MD5 sums checked
 package ‘viridis’ successfully unpacked and MD5 sums checked
 package ‘gridSVG’ successfully unpacked and MD5 sums checked
---- 1.11 Using iNZight Lite  ----------
+--- 1.11 Using iNZight Lite ----------
 iNZight Lite is a web-application that runs over the internet and does not need to be installed. It will run on tablets. The user interface for iNZight Lite is rather different from that for iNZight.
---- 1.12 Data organisation  ----------
+--- 1.12 Data organisation ----------
 [Comments] I guess in databases, entities are represented in a form of tables during implementation as you said but during design they are referred to as entities in the Entity-Relationship Diagram or Objects if you are using Object-Oriented approach.
 Rows and Cells vs. Entities vs Variables (statistical term)
 Column header
@@ -88,41 +88,52 @@ Gaps in the data
 Missing Value: NULL or NA in iNZight
 Different programmes have different default missing-value code conventions.
 Numeric Variables vs Categorical Variables (defining groups)
---- 1.13 Week 1 glossary  ----------
+--- 1.13 Week 1 glossary ----------
 Frequency: The number of times a value of a variable, or a category, occurs. (Alternative names: count, tally.)
---- 1.14 Using your own data  ----------
+--- 1.14 Using your own data ----------
 Some general data preparation rules (10 items)
 10. Remove units from data, e.g. 5 years/5 yrs/5yr should all be just 5 and $10 is just 10
---- 1.15 Exercise - Load data into iNZight  ----------
+--- 1.15 Exercise - Load data into iNZight ----------
 Check "Articles\1.15-exercise-import-data-into-R_17.pdf"
 Check "100-InstallTheRPackages.R"
---- 1.16 Data Organisation Quiz  ----------
+--- 1.16 Data Organisation Quiz ----------
 Question 1: We arrange our data in a rectangular format where the entities (or individuals) data is being recorded for correspond to the rowsand the variables (or properties being recorded for those entities) correspond to the columns.
 Question 2: We collect and analyse data so we can get insight into a problem of interest, make informed decisions rather than guess, and understand what could happen.
 Question 3: The missing value in the red dotted circle should be recorded as a 0 or a space. This statement is FALSE – We should represent a missing value using a special code (e.g. NA for iNZight) or the cell should be entirely empty.
 Question 4: AgeDecade is a numeric variable. This statement is FALSE – AgeDecade is a categorical variable because age has been divided up into age groups.
---- 1.17 Weekly Reflections  ----------
+--- 1.17 Weekly Reflections ----------
 Nice comments! :D
 First week done!
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+Week 02 -- 03242018 ------------------------------------------------------------
+STATS BOOT CAMP ----------------------------------------------------------------
+--- 2.1 Introduction ----------
+NHANES (in-hayns) survey data
+We'll look at variables like Education, Marital Status, and Body Mass Index.
+--- 2.2 Categorical variables ----------
+Whenever I get a new data set, I try to familiarise myself with what I've got before I do any real analysis. I look for things that might surprise me and might indicate errors in the data. One of the first things I do is to look at each variable in turn.
+Numeric variables are those we can think of as measurements, like Age and Weight here. Categorical variables, like Gender, Age Decade, Race3, Education, and Marital Status give us group membership labels.
+A categorical variable like Marital Status divides our people up into categories or groups.
+In 2011, NHANES changed their race categories to separate out Asian. It had previously been included in "Other". The name of the new variable is Race3.
+Pies and stacked bars have the advantages of conveying the sense of being parts of a whole. However, they're not good for discovery because they're not good at letting you see changes and differences. And spotting changes is the lifeblood of discovery.
+We get useful impressions of what the data are saying much more quickly from the graph than from a table of numbers. We look first at the graph to get an impression of what's happening, and then consult the table if we want more accuracy.
+--- 2.3 Week 2 glossary ----------
+Oddities: Anything in the data that looks strange or odd. Things that make us wonder, “Is that a mistake?”
+--- 2.4 Ordering categories ----------
+If the categories have a natural ordering, the variable is said to be ordinal.
+If there's no natural ordering, the variable is said to be nominal.
+If there's no particular reason for setting categories in some other order, ordering them by height order is usually the most informative. We call this ordering by frequency.
+Frequency is just another name for a count. 
+o wrap up, we have the following ways of ordering. Alphabetic order helps us to locate a particular item in a list just as we do with a name in a phone book. Frequency order is best for letting us see relative popularity. But if there's a natural order, we'd normally want to use it.
+--- 2.5 Exercise - Categorical variables ----------
+Check "200-CategoricalVariables.R"
+--- 2.6 Categorical variables Quiz ----------
+Question 1: Numeric variables are those like Age (in years) that we can think of as measurements. A categorical variable, like AgeDecade, defines groups that our entities belong to.
+Question 2: Pie charts are very difficult to use if you want to assess group differences, unless there are only 2 groups. Stacked bar charts make comparisons between different groups difficult. Using percentages gives a clear impression of the order of the groups by size as well as giving a consistent indication of the fraction of all the entities that belong to that group. An ordinal variable is a set of groupings that has a natural order.Nominal variables contain groups that have no natural order and can often usefully be plotted in the order of their frequencies.
+Question 3: Chart reading question
+Question 4: Chart reading question
+--- 2.7 Numeric variables ----------
 
 
 

@@ -6,9 +6,9 @@ iNZight -- https://www.stat.auckland.ac.nz/~wild/iNZight/index.php
 --- 1.2 About this course ----------
 You create visual representations of data, usually in the iNZight software.
 Discussion about specified topics, such as possible interpretations of statistical data.
-Lead educator, Chris Wild, (https://www.stat.auckland.ac.nz/~wild)
+Lead educator, Chris Wild, (https://www.stat.auckland.ac.nz/~wild) (@ChrisWild)
 Educator, Tracey Meek,
-Educator, Mike Forster,
+Educator, Mike Forster, (@MikeForster)
 Technology mentor, Tom Elliott.(http://tomelliott.co.nz)(inzight_support@auckland.ac.nz)
 --- 1.3 How to use FutureLearn ----------
 Follow teachers
@@ -127,13 +127,98 @@ If there's no particular reason for setting categories in some other order, orde
 Frequency is just another name for a count. 
 o wrap up, we have the following ways of ordering. Alphabetic order helps us to locate a particular item in a list just as we do with a name in a phone book. Frequency order is best for letting us see relative popularity. But if there's a natural order, we'd normally want to use it.
 --- 2.5 Exercise - Categorical variables ----------
-Check "200-CategoricalVariables.R"
+Check "Articles\2.5-exercise-categorical-variables_R_17.pdf"
+Check "200-StatsBootCamp.R"
 --- 2.6 Categorical variables Quiz ----------
 Question 1: Numeric variables are those like Age (in years) that we can think of as measurements. A categorical variable, like AgeDecade, defines groups that our entities belong to.
 Question 2: Pie charts are very difficult to use if you want to assess group differences, unless there are only 2 groups. Stacked bar charts make comparisons between different groups difficult. Using percentages gives a clear impression of the order of the groups by size as well as giving a consistent indication of the fraction of all the entities that belong to that group. An ordinal variable is a set of groupings that has a natural order.Nominal variables contain groups that have no natural order and can often usefully be plotted in the order of their frequencies.
 Question 3: Chart reading question
 Question 4: Chart reading question
+
+Week 02 -- 03262018 ------------------------------------------------------------
 --- 2.7 Numeric variables ----------
+I'll talk about centre
+Plotting numeric variables shows us interesting characteristics of our data.
+It's called a stacked dot plot. Each value is plotted against the scale using a dot-- so each dot represents a person.
+Insight defaults from drawing dot plots to drawing histograms, like this one, at about 2,000 observations. Histograms are faster to draw for large data sets. But you'll see they're giving us the same shapes to interpret.
+Here the main things we look for in dot plots-- centre, spread, shape, and oddities.
+When the data is nearly symmetric, the mean and the median are almost the same.
+This sort of shape is said to be skewed. With skewed data, there's no sharp notion of centre.
+So which measure of centre should we use? That depends on what we want to use it for. For incomes, and many highly-skewed variables, the median tends to be preferable because it better represents the common experience, or what is typical. Half of the people get less. Half get more.
+--- 2.8 Features of numeric variables ----------
+Check "Articles\2.7-Features of Numeric Variables.pdf"
+Centre: Median and Mean
+Spread: Interquartile Range (IQR) and Standard deviation
+Shape: Modality (unimodal, bimodal, trimodal) and Symmetry and skewness(symmetric, positively and negatively skewed)
+Oddities: Outlier(s), Gaps and Clusters, Spike, Truncation, and Truncation with spike
+Means can be quite badly affected by outliers in smaller data sets whereas medians are not.
+Recall that if the shape is strongly skewed the mean and median can be quite different.
+Standard Deviation and Variance: http://www.mathsisfun.com/data/standard-deviation.html
+Positive skew = right skew = a longer right tail 
+Negative skew = left skew = a longer left tail
+How to Find the Median Value: http://www.mathsisfun.com/median.html
+Quartiles: https://www.mathsisfun.com/data/quartiles.html
+-- 2.9 Feature spotting ----------
+I'll talk about spread, shape, and oddities (good graph examples--I should built them in R if we don't do it in next chapter)
+We’ll introduce you to box plots and measures of spread, and to shape and oddities.
+When we cut the data in half-- half above, half below-- this gives us the median. The position that divides the bottom half in half-- so that a quarter of the observations lie below, and three-quarters above it-- is the first, or lower, quartile. Similarly, the third, or upper, quartile divides the upper half of the data in half. So that three-quarters lies below, and a quarter of the observations lie above. Circling this gives us the middle half. Putting it together gives us the box plot.
+The concept of spread answers the questions-- how spread out are the observations along the scale? Or equivalently, how much did these observations vary?
+--- 2.10 Exercise - Numeric variables ----------
+Check "Articles\2.10-exercise-numeric-variables_R_17.pdf"
+Check "200-StatsBootCamp.R"
+--- 2.11 Numeric variables Quiz ----------
+Question 1: The value where our stacked dot plot or histogram balances is the mean. The middle value of the data is the median. 
+In statistics “Average” refers to the vague idea of “centre”. “Mean” and “Median” are precise, but different, ways of trying to implement the vague idea of “average”.
+Question 2: FALSE:The mean for this data will be very different to the median, due to the shape of the dot plot.
+The middle line of the box plot corresponds to the median BPDiaAve.
+The dot plot and box plot is reasonably symmetric. The mean and median would be quite similar.
+Question 3: FALSE: The median and mean of the number of drinks per day would be very similar.
+The data is strongly positively skewed.
+--- 2.12 Comparing groups ----------
+The most useful insights from data come from spotting an important change.
+Shifts vs. Background variability
+The extent of a shift
+shift and overlap
+So high numbers of Children Per Woman seem to be associated with factors that tend to go along with poverty.
+I just mean within-group variability. It would probably have been better to express it like that.
+‘Shift’ is basically a change (move) in centres. ‘Background variability’ is the variability of values in each group around their centres.
+--- 2.13 Exercise - Comparing groups ----------
+Check "Articles\2.13-exercise-comparing-groups_R_17.pdf"
+Check "200-StatsBootCamp.R"
+--- 2.14 Time travel ----------
+Explore changes over time and find some interesting and consistent trends. Perform analyses using three variables at once.
+--- 2.15 Exercise - Time travel ----------
+Check "Articles\2.15-exercise-time-travel_R_17.pdf"
+Check "200-StatsBootCamp.R"
+--- 2.16 Comparing groups Quiz ----------
+Question 1: TRUE: Europe & Central Asia has the biggest median.
+This median is the furthest to the right.
+TRUE: Every Region had at least one country with an ALE value over 75 years.
+The individual values are the dots. There is at least one dot above 75 years within every Region.
+TRUE: There is a lot of overlap in the data for all Regions except Sub Saharan Africa.
+There is almost complete overlap between the sets of points for all Regions except Sub-Saharan Africa which is shifted substantially to the left and has at most half overlap with the other Regions.
+FALSE: The spread (as summarised by the IQR) for Sub-Saharan Africa is much bigger than for East Asia & Pacific.
+Sub-Saharan Africa’s IQR (box width) is similar if not smaller than that for East Asia & Pacific.
+Question 2: TRUE: For each Region, the median ALE has been larger in recent years than it was in 1952.
+The dot plots for all regions move to the right over the years showing a longer life expectancy.
+TRUE: For most Regions, the increases in median ALE have been slowing down over recent years.
+The shift from left to right (showing a lengthening of life expectancy) is in smaller increments between years than previously.
+FALSE: The variability in ALE has reduced over time for all regions.
+For example, the spread of the data for Sub-Saharan Africa has increased since the 1950s
+--- 2.17 Questioning strategy in Quizzes and Tests ----------
+Most of you are time-poor so we want make sure that every element of the course, including each quiz and test, is aimed at increasing learning.
+--- 2.18 Boot Camp assessment ----------
+I have no plans to upgrade
+Just skip
+--- 2.19 Weekly Reflections ----------
+Over analyzing data is a trap for young players. Models are best if they are simple, but if you over-analyze the data your model will be very complicated and impossible to explain. It'll also be very hard to use. If you can see that the main relationships are simple, the insight you can get is far more useful for making informed decisions. Gotta be better than guessing!!
+
+
+Week 03 -- MMDD2018 ------------------------------------------------------------
+RELATIONSHIPS ------------------------------------------------------------------
+--- 3.1 Introduction to relationships ----------
+
+
 
 
 

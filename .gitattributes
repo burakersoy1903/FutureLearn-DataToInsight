@@ -1,2 +1,6 @@
 *.rb linguist-language=R
 InteractiveWebGraphics/* linguist-vendored
+
+# https://stackoverflow.com/questions/40847893/add-comments-remarks-to-gitattributes
+# https://stackoverflow.com/questions/34713765/github-changes-repository-to-wrong-language
+# https://github.com/github/linguist#troubleshooting

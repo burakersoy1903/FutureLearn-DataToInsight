@@ -1,0 +1,2062 @@
+<!DOCTYPE HTML>
+<!-- template for HTML conversion plot -->
+<html>
+
+  <head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title> iNZight Plot </title>
+
+      <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
+      <!-- style sheet -->
+      <style>
+body {
+  padding: 20px;
+}
+
+/* layout settings */
+.svg-div {
+  float: left;
+  width: 50%;
+  position: relative;
+}
+
+.tbl-div {
+  float: right;
+   width: 50%; /* optional */
+   overflow-x: auto;
+}
+
+/* attempt to use media queries */
+@media (max-width: 700px), (orientation: portrait) {
+  .svg-div {
+    float: left;
+    width: 100%;
+  }
+
+  .tbl-div {
+    float: left;
+    width: 100%;
+    overflow-x: auto;
+  }
+}
+
+#control {
+  clear: left;
+  background-color: #F4F6F7;
+  border: 0.5px #B3B6B7 solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+button {
+  margin: 5px;
+}
+
+p {
+  margin-top: 5px;
+}
+
+/*** TABLE PROPERTIES ***/
+/*totals column  or totals row */
+table {
+  width: 100% !important;
+}
+
+td, th {
+  text-align: center;
+  word-wrap: break-word;
+  font-size: 12px;
+}
+
+/* table headings */
+.headings {
+  font-style: italic;
+  font-weight:normal;
+  text-decoration: underline;
+  text-align: center;
+  align: center;
+  visibility:visible;
+}
+
+/* groups for two way bar plots */
+.yGroup, .tc {
+  text-align: center;
+  font-weight: bold;
+}
+
+/*** BUTTONS ***/
+#viewTable {
+  background-color: #1565C0;
+  margin-right: 10px;
+}
+
+#reset {
+  background-color: rgb(0, 128, 0);
+  margin-right: 10px;
+}
+
+.Percentage {
+  background-color:rgb(0, 0, 255);
+  opacity: 0.5;
+  margin-left: 10px;
+}
+
+.Count {
+ background-color: purple;
+ opacity: 0.5;
+ margin-left: 10px;
+}
+
+#form {
+  display: inline-table;
+  padding: 5px;
+}
+
+/* textlabels */
+.label {
+  font-size: 10;
+  fill: black;
+  stroke: none;
+  fill-opacity: 1;
+  text-anchor: middle;
+  visibility: inherit;
+  font-weight: normal;
+}
+
+/* BAR PROPERTIES (for bar charts) */
+.bar {
+  stroke: none;
+  visibility: visible;
+  opacity: 1;
+}
+
+.bar:hover {
+  stroke-width: 50%;
+  fill-opacity: 0.5;
+}
+
+/* upon selection */
+.selected {
+  opacity: 1;
+  visibility: visible;
+}
+
+.none {
+  opacity: 0.2;
+}
+
+.hidden {
+  display: none;
+  visibility: hidden;
+}
+
+/*highlighting data */
+.totalRow, .tabSelect, .select {
+  align: center;
+  font-weight: bold;
+}
+
+.rowSelect {
+  display: table-row;
+  opacity: 1;
+}
+
+/* legend interactions and styling */
+.show {
+  font-size: 115%;
+  fill-opacity: 0.5;
+}
+
+.out {
+  font-size: 100%;
+  fill-opacity: 1;
+}
+
+.keyText {
+  fill: black;
+}
+
+/* for box plots - dot plots, histograms */
+.box {
+  fill: gray;
+  fill-opacity: 0.5;
+}
+
+.fillBox {
+  fill-opacity: 0.2;
+}
+
+/* for dot plots and scatter plots */
+.point:hover { /* showPoint */
+  fill: currentColor;
+  stroke-width: 50%;
+  fill-opacity: 1;
+}
+
+/* for histograms and hexbins */
+.histBar {
+  stroke: white;
+  stroke-width: 0.25;
+}
+
+.hexbin {
+  stroke: none;
+}
+
+.hexbin:hover, .histBar:hover {
+  fill-opacity: 0.5;
+}
+
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    padding: 5px;
+    z-index: 10;
+    opacity: 1;
+    visibility: hidden;
+    font: 11px sans-serif;
+    background: white;
+    border: 1px solid lightgray;
+    border-radius: 5px;
+    pointer-events: none;
+}
+
+span {
+  font-weight: bold;
+}
+
+/* for iNZightMaps */
+.selectRegion {
+  stroke: darkgray;
+  fill: black;
+  fill-opacity: 0.5;
+}
+
+/* line chart container */
+.spark-div {
+  width: 100%;
+  padding: 10px;
+  clear: left;
+}
+
+/* lines on the chart */
+.spark-line {
+  stroke: black;
+  fill: none;
+  stroke-width: 1.5;
+}
+
+.follow-text {
+    stroke: white;
+    fill: black;
+    stroke-width: 0.05;
+    font-size: 0.75em;
+}
+
+.x-lab, .y-lab, .spark-title {
+  text-anchor: center;
+}
+
+.x-line {
+  stroke: black;
+  stroke-width: 0.5;
+}
+
+/* time slider */
+#control div {
+  padding: 10px;
+  margin: auto;
+}
+
+.slider-div {
+  width: 90%;
+}
+
+.slider {
+  -webkit-appearance: none;
+  height: 5px;
+  border-radius: 5px;
+  background: lightgray;
+  width: calc(100% - 30px);
+  display: block;
+}
+
+/* circle thumb */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: black;
+  cursor: pointer;
+  transition: background 0.15s ease-in-out;
+}
+
+.slider-val {
+  width: 55px;
+  border-radius: 5px;
+  color: black;
+  background: white;
+  border: 0.5px #B3B6B7 solid;
+  text-align: center;
+  line-height: 10px;
+  margin: auto;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  background: darkgray;
+}
+      </style>
+
+      <!-- jQuery library -->
+    <script type = "text/javascript" src = "https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <!-- D3 library -->
+    <script type = "text/javascript" src = "https://d3js.org/d3.v4.min.js"></script>
+      <!-- for DT + Bootstrap -->
+    <script type = "text/javascript" src ="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"> </script>
+    <script type = "text/javascript" charset="utf8" src = "https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap.min.js"></script>
+    <script type = "text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  </head>
+
+  <body>
+    <div class = "container-fluid" id = "main">
+      <div class = "svg-div">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="690px" height="533px" viewBox="0 0 690 533" version="1.1">
+  <metadata xmlns:gridsvg="http://www.stat.auckland.ac.nz/~paul/R/gridSVG/">
+    <gridsvg:generator name="gridSVG" version="1.6-0" time="2018-04-06 13:16:58"/>
+    <gridsvg:argument name="name" value=""/>
+    <gridsvg:argument name="exportCoords" value="none"/>
+    <gridsvg:argument name="exportMappings" value="none"/>
+    <gridsvg:argument name="exportJS" value="none"/>
+    <gridsvg:argument name="res" value="96"/>
+    <gridsvg:argument name="prefix" value=""/>
+    <gridsvg:argument name="addClasses" value="FALSE"/>
+    <gridsvg:argument name="indent" value="TRUE"/>
+    <gridsvg:argument name="htmlWrapper" value="FALSE"/>
+    <gridsvg:argument name="usePaths" value="vpPaths"/>
+    <gridsvg:argument name="uniqueNames" value="TRUE"/>
+    <gridsvg:separator name="id.sep" value="."/>
+    <gridsvg:separator name="gPath.sep" value="::"/>
+    <gridsvg:separator name="vpPath.sep" value="::"/>
+  </metadata>
+  <g transform="translate(0, 533) scale(1, -1)">
+    <g id="gridSVG" fill="rgb(255,255,255)" stroke="rgb(0,0,0)" stroke-dasharray="none" stroke-width="1" font-size="16" font-family="Helvetica, Arial, FreeSans, Liberation Sans, Nimbus Sans L, sans-serif" opacity="1" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10" stroke-opacity="1" fill-opacity="1" font-weight="normal" font-style="normal">
+      <defs>
+        <symbol id="gridSVG.pch21" viewBox="-5 -5 10 10" overflow="visible">
+          <circle cx="0" cy="0" r="3.75"/>
+        </symbol>
+      </defs>
+      <g id="container.1" font-size="16">
+        <g id="container::VP:TOPlayout.1">
+          <g id="container::VP:TOPlayout::GRID.VP.834.1"/>
+          <g id="container::VP:TOPlayout::GRID.VP.835.1">
+            <g id="inz-main-title.1">
+              <g id="inz-main-title.1.1" transform="translate(345, 518)" stroke-width="0.1">
+                <g id="inz-main-title.1.1.scale" transform="scale(1, -1)">
+                  <text x="0" y="0" id="inz-main-title.1.1.text" text-anchor="middle" fill="rgb(0,0,0)" fill-opacity="1" font-size="19.2">
+                    <tspan id="inz-main-title.1.1.tspan.1" dy="7.5" x="0">EnergyUsePerPerson versus CO2Emissions</tspan>
+                  </text>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g id="container.2" font-size="16">
+        <g id="container::VP:TOPlayout.2">
+          <g id="container::VP:TOPlayout::GRID.VP.836.1">
+            <g id="inz-ylab.1">
+              <g id="inz-ylab.1.1" transform="translate(11.52, 282)" stroke-width="0.1">
+                <g id="inz-ylab.1.1.scale" transform="scale(1, -1)">
+                  <text x="0" y="0" id="inz-ylab.1.1.text" transform="rotate(-90)" text-anchor="middle" fill="rgb(0,0,0)" fill-opacity="1" font-size="16">
+                    <tspan id="inz-ylab.1.1.tspan.1" dy="6.5" x="0">EnergyUsePerPerson</tspan>
+                  </text>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g id="container.3" font-size="16">
+        <g id="container::VP:TOPlayout.3">
+          <g id="container::VP:TOPlayout::GRID.VP.837.1">
+            <g id="inz-xlab.1">
+              <g id="inz-xlab.1.1" transform="translate(317, 33.52)" stroke-width="0.1">
+                <g id="inz-xlab.1.1.scale" transform="scale(1, -1)">
+                  <text x="0" y="0" id="inz-xlab.1.1.text" text-anchor="middle" fill="rgb(0,0,0)" fill-opacity="1" font-size="16">
+                    <tspan id="inz-xlab.1.1.tspan.1" dy="6.5" x="0">CO2Emissions</tspan>
+                  </text>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g id="container.4" font-size="16">
+        <g id="container::VP:TOPlayout.4">
+          <g id="container::VP:TOPlayout::GRID.VP.838.1">
+            <g id="container::VP:TOPlayout::GRID.VP.838::VP:LEGlayout.1"/>
+          </g>
+        </g>
+      </g>
+      <g id="container.5" font-size="16">
+        <g id="container::VP:TOPlayout.5">
+          <g id="container::VP:TOPlayout::GRID.VP.838.2">
+            <g id="container::VP:TOPlayout::GRID.VP.838::VP:LEGlayout.2">
+              <g id="container::VP:TOPlayout::GRID.VP.838::VP:LEGlayout::GRID.VP.839.1">
+                <g id="container::VP:TOPlayout::GRID.VP.838::VP:LEGlayout::GRID.VP.839::GRID.VP.831.1">
+                  <g id="inz-leg-lines.1">
+                    <g id="container::VP:TOPlayout::GRID.VP.838::VP:LEGlayout::GRID.VP.839::GRID.VP.831::GRID.VP.832.1">
+                      <g id="GRID.cellGrob.645.1">
+                        <g id="inz-leg-pt-linear.1">
+                          <polyline id="inz-leg-pt-linear.1.1" points="610.68,262.8 633.72,262.8" stroke="rgb(0,0,255)" stroke-dasharray="none" stroke-width="2" stroke-opacity="1" fill="none"/>
+                        </g>
+                      </g>
+                    </g>
+                    <g id="container::VP:TOPlayout::GRID.VP.838::VP:LEGlayout::GRID.VP.839::GRID.VP.831::GRID.VP.833.1">
+                      <g id="GRID.cellGrob.646.1">
+                        <g id="inz-leg-txt-linear.1">
+                          <g id="inz-leg-txt-linear.1.1" transform="translate(641.4, 262.8)" stroke-width="0.1">
+                            <g id="inz-leg-txt-linear.1.1.scale" transform="scale(1, -1)">
+                              <text x="0" y="0" id="inz-leg-txt-linear.1.1.text" text-anchor="start" fill="rgb(0,0,0)" fill-opacity="1" font-size="12.8">
+                                <tspan id="inz-leg-txt-linear.1.1.tspan.1" dy="5.5" x="0">linear</tspan>
+                              </text>
+                            </g>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g id="container.6" font-size="16">
+        <g id="container::VP:TOPlayout.6">
+          <g id="container::VP:TOPlayout::GRID.VP.840.1">
+            <g id="inz-main-sub-bottom.1">
+              <g id="inz-main-sub-bottom.1.1" transform="translate(317, 11)" stroke-width="0.1">
+                <g id="inz-main-sub-bottom.1.1.scale" transform="scale(1, -1)">
+                  <text x="0" y="0" id="inz-main-sub-bottom.1.1.text" text-anchor="middle" fill="rgb(0,0,0)" fill-opacity="1" font-size="12.8">
+                    <tspan id="inz-main-sub-bottom.1.1.tspan.1" dy="5.5" x="0">101 missing values (32 in CO2Emissions, 101 in EnergyUsePerPerson)</tspan>
+                  </text>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g id="container.7" font-size="16">
+        <g id="container::VP:TOPlayout.7">
+          <g id="container::VP:TOPlayout::GRID.VP.841.1">
+            <g id="container::VP:TOPlayout::GRID.VP.841::VP:PLOTlayout.1"/>
+          </g>
+        </g>
+      </g>
+      <g id="container.8" font-size="16">
+        <g id="container::VP:TOPlayout.8">
+          <g id="container::VP:TOPlayout::GRID.VP.841.2">
+            <g id="container::VP:TOPlayout::GRID.VP.841::VP:PLOTlayout.2">
+              <g id="container::VP:TOPlayout::GRID.VP.841::VP:PLOTlayout::GRID.VP.842.1" font-size="19.2">
+                <g id="container::VP:TOPlayout::GRID.VP.841::VP:PLOTlayout::GRID.VP.842::GRID.VP.843.1">
+                  <defs>
+                    <clipPath id="container::VP:TOPlayout::GRID.VP.841::VP:PLOTlayout::GRID.VP.842::GRID.VP.843::VP:locate.these.points.1.clipPath">
+                      <rect x="69.72" y="91.72" width="494.56" height="380.56" fill="none" stroke="none"/>
+                    </clipPath>
+                  </defs>
+                  <g id="container::VP:TOPlayout::GRID.VP.841::VP:PLOTlayout::GRID.VP.842::GRID.VP.843::VP:locate.these.points.1" clip-path="url(#container::VP:TOPlayout::GRID.VP.841::VP:PLOTlayout::GRID.VP.842::GRID.VP.843::VP:locate.these.points.1.clipPath)">
+                    <g id="inz-plot-bg.1.1.1">
+                      <rect id="inz-plot-bg.1.1.1.1" x="69.72" y="91.72" width="494.56" height="380.56" transform="" fill="rgb(238,238,238)" stroke-dasharray="none" fill-opacity="1"/>
+                    </g>
+                    <g id="inz-x-grid.1.1.1">
+                      <polyline id="inz-x-grid.1.1.1.1" points="91.42,91.72 91.42,472.28" stroke="rgb(255,255,255)" stroke-width="1" stroke-opacity="1" fill="none"/>
+                      <polyline id="inz-x-grid.1.1.1.2" points="184.1,91.72 184.1,472.28" stroke="rgb(255,255,255)" stroke-width="1" stroke-opacity="1" fill="none"/>
+                      <polyline id="inz-x-grid.1.1.1.3" points="276.79,91.72 276.79,472.28" stroke="rgb(255,255,255)" stroke-width="1" stroke-opacity="1" fill="none"/>
+                      <polyline id="inz-x-grid.1.1.1.4" points="369.47,91.72 369.47,472.28" stroke="rgb(255,255,255)" stroke-width="1" stroke-opacity="1" fill="none"/>
+                      <polyline id="inz-x-grid.1.1.1.5" points="462.15,91.72 462.15,472.28" stroke="rgb(255,255,255)" stroke-width="1" stroke-opacity="1" fill="none"/>
+                      <polyline id="inz-x-grid.1.1.1.6" points="554.83,91.72 554.83,472.28" stroke="rgb(255,255,255)" stroke-width="1" stroke-opacity="1" fill="none"/>
+                    </g>
+                    <g id="inz-y-grid.1.1.1">
+                      <polyline id="inz-y-grid.1.1.1.1" points="69.72,106.19 564.28,106.19" stroke="rgb(255,255,255)" stroke-width="1" stroke-opacity="1" fill="none"/>
+                      <polyline id="inz-y-grid.1.1.1.2" points="69.72,209.57 564.28,209.57" stroke="rgb(255,255,255)" stroke-width="1" stroke-opacity="1" fill="none"/>
+                      <polyline id="inz-y-grid.1.1.1.3" points="69.72,312.96 564.28,312.96" stroke="rgb(255,255,255)" stroke-width="1" stroke-opacity="1" fill="none"/>
+                      <polyline id="inz-y-grid.1.1.1.4" points="69.72,416.35 564.28,416.35" stroke="rgb(255,255,255)" stroke-width="1" stroke-opacity="1" fill="none"/>
+                      <polyline id="inz-y-grid.1.1.1.5" points="69.72,519.73 564.28,519.73" stroke="rgb(255,255,255)" stroke-width="1" stroke-opacity="1" fill="none"/>
+                    </g>
+                    <g id="inz-SCATTERPOINTS.1.1.1">
+                      <use id="inz-SCATTERPOINTS.1.1.1.1" href="#gridSVG.pch21" x="108.14" y="126.31" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.2" href="#gridSVG.pch21" x="107.69" y="122.64" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.3" href="#gridSVG.pch21" x="92.87" y="118.95" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.4" href="#gridSVG.pch21" x="189.01" y="235.42" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.5" href="#gridSVG.pch21" x="140.42" y="153.63" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.6" href="#gridSVG.pch21" x="92.25" y="114.37" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.7" href="#gridSVG.pch21" x="164.4" y="190.53" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.8" href="#gridSVG.pch21" x="94.75" y="111.44" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.9" href="#gridSVG.pch21" x="130.42" y="143.5" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.10" href="#gridSVG.pch21" x="179.87" y="186.39" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.11" href="#gridSVG.pch21" x="170.21" y="185.36" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.12" href="#gridSVG.pch21" x="419.27" y="406.65" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.13" href="#gridSVG.pch21" x="93.89" y="115.72" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.14" href="#gridSVG.pch21" x="104.79" y="118.96" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.15" href="#gridSVG.pch21" x="305.42" y="287.83" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.16" href="#gridSVG.pch21" x="104.86" y="117.12" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.17" href="#gridSVG.pch21" x="170.41" y="176.37" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.18" href="#gridSVG.pch21" x="134.6" y="144.43" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.19" href="#gridSVG.pch21" x="98.68" y="117.37" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.20" href="#gridSVG.pch21" x="156.64" y="167.04" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.21" href="#gridSVG.pch21" x="260.71" y="225.68" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.22" href="#gridSVG.pch21" x="218.35" y="190.09" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.23" href="#gridSVG.pch21" x="105.26" y="118.09" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.24" href="#gridSVG.pch21" x="541.8" y="422.77" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.25" href="#gridSVG.pch21" x="115.93" y="125.48" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.26" href="#gridSVG.pch21" x="132.12" y="139" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.27" href="#gridSVG.pch21" x="239.33" y="230.78" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.28" href="#gridSVG.pch21" x="161.98" y="161.08" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.29" href="#gridSVG.pch21" x="140.53" y="138.75" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.30" href="#gridSVG.pch21" x="94.85" y="117.38" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.31" href="#gridSVG.pch21" x="125.37" y="131.45" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.32" href="#gridSVG.pch21" x="159.02" y="169.29" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.33" href="#gridSVG.pch21" x="93.76" y="115.36" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.34" href="#gridSVG.pch21" x="294.37" y="284.21" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.35" href="#gridSVG.pch21" x="347.25" y="301.25" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.36" href="#gridSVG.pch21" x="102.22" y="119.35" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.37" href="#gridSVG.pch21" x="168.06" y="159.28" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.38" href="#gridSVG.pch21" x="165.8" y="164.48" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.39" href="#gridSVG.pch21" x="100.7" y="112.71" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.40" href="#gridSVG.pch21" x="167.23" y="189.39" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.41" href="#gridSVG.pch21" x="93.74" y="112.08" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.42" href="#gridSVG.pch21" x="97.9" y="120.62" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.43" href="#gridSVG.pch21" x="105.45" y="117.06" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.44" href="#gridSVG.pch21" x="131.35" y="140.03" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.45" href="#gridSVG.pch21" x="92.39" y="114.88" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.46" href="#gridSVG.pch21" x="133.16" y="164.26" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.47" href="#gridSVG.pch21" x="160.65" y="167.01" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.48" href="#gridSVG.pch21" x="110.18" y="133" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.49" href="#gridSVG.pch21" x="105.83" y="134.55" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.50" href="#gridSVG.pch21" x="189.19" y="243.46" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.51" href="#gridSVG.pch21" x="101.28" y="121.36" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.52" href="#gridSVG.pch21" x="98.49" y="115.36" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.53" href="#gridSVG.pch21" x="99.88" y="118.51" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.54" href="#gridSVG.pch21" x="179.82" y="190.32" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.55" href="#gridSVG.pch21" x="183.84" y="176.06" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.56" href="#gridSVG.pch21" x="263.31" y="261.02" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.57" href="#gridSVG.pch21" x="227.24" y="198.8" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.58" href="#gridSVG.pch21" x="109.14" y="127.16" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.59" href="#gridSVG.pch21" x="96.81" y="115.33" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.60" href="#gridSVG.pch21" x="95.6" y="111.59" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.61" href="#gridSVG.pch21" x="121.38" y="128.68" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.62" href="#gridSVG.pch21" x="105.1" y="119.61" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.63" href="#gridSVG.pch21" x="109.11" y="121.45" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.64" href="#gridSVG.pch21" x="147.68" y="191.25" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.65" href="#gridSVG.pch21" x="103.45" y="119.74" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.66" href="#gridSVG.pch21" x="133.92" y="146.1" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.67" href="#gridSVG.pch21" x="165.04" y="155.84" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.68" href="#gridSVG.pch21" x="92.2" y="109.02" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.69" href="#gridSVG.pch21" x="129.94" y="138.79" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.70" href="#gridSVG.pch21" x="170.4" y="178.46" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.71" href="#gridSVG.pch21" x="94.82" y="114.15" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.72" href="#gridSVG.pch21" x="98.18" y="121.59" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.73" href="#gridSVG.pch21" x="181.99" y="170.93" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.74" href="#gridSVG.pch21" x="121.58" y="123.47" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.75" href="#gridSVG.pch21" x="148.73" y="148.18" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.76" href="#gridSVG.pch21" x="96.41" y="114.3" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.77" href="#gridSVG.pch21" x="242.96" y="270.49" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.78" href="#gridSVG.pch21" x="114.04" y="125.06" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.79" href="#gridSVG.pch21" x="164.34" y="133.3" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.80" href="#gridSVG.pch21" x="319.95" y="300.51" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.81" href="#gridSVG.pch21" x="146.28" y="137.52" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.82" href="#gridSVG.pch21" x="92.4" y="113.05" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.83" href="#gridSVG.pch21" x="183.09" y="219.28" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.84" href="#gridSVG.pch21" x="381.47" y="332.3" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.85" href="#gridSVG.pch21" x="114.5" y="131.94" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.86" href="#gridSVG.pch21" x="129.3" y="133.11" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.87" href="#gridSVG.pch21" x="104.58" y="120.36" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.88" href="#gridSVG.pch21" x="202.48" y="206.48" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.89" href="#gridSVG.pch21" x="104.79" y="119.79" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.90" href="#gridSVG.pch21" x="140.45" y="148.44" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.91" href="#gridSVG.pch21" x="142.28" y="153.74" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.92" href="#gridSVG.pch21" x="195.11" y="199.11" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.93" href="#gridSVG.pch21" x="157.6" y="454.98" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.94" href="#gridSVG.pch21" x="168.06" y="138.81" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.95" href="#gridSVG.pch21" x="129.44" y="130.65" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.96" href="#gridSVG.pch21" x="140.85" y="178.59" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.97" href="#gridSVG.pch21" x="94.16" y="113.24" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.98" href="#gridSVG.pch21" x="132.1" y="144.2" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.99" href="#gridSVG.pch21" x="152.32" y="208" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.100" href="#gridSVG.pch21" x="128.7" y="134.91" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.101" href="#gridSVG.pch21" x="109.93" y="125.1" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.102" href="#gridSVG.pch21" x="182.42" y="188.47" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.103" href="#gridSVG.pch21" x="171.7" y="162.16" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.104" href="#gridSVG.pch21" x="94.38" y="110.14" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.105" href="#gridSVG.pch21" x="115.03" y="128.95" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.106" href="#gridSVG.pch21" x="122.4" y="147.11" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.107" href="#gridSVG.pch21" x="151.56" y="166.8" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.108" href="#gridSVG.pch21" x="95.72" y="113.82" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.109" href="#gridSVG.pch21" x="106.59" y="116.08" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.110" href="#gridSVG.pch21" x="110.98" y="122.41" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.111" href="#gridSVG.pch21" x="151.64" y="158.13" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.112" href="#gridSVG.pch21" x="189.04" y="206.21" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.113" href="#gridSVG.pch21" x="94.81" y="113.72" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.114" href="#gridSVG.pch21" x="155.39" y="176.19" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.115" href="#gridSVG.pch21" x="140.69" y="217.43" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.116" href="#gridSVG.pch21" x="141.96" y="160.69" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.117" href="#gridSVG.pch21" x="93.93" y="112.77" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.118" href="#gridSVG.pch21" x="97.13" y="121.45" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.119" href="#gridSVG.pch21" x="100.23" y="116.27" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.120" href="#gridSVG.pch21" x="178.79" y="168.79" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.121" href="#gridSVG.pch21" x="116.31" y="125.16" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.122" href="#gridSVG.pch21" x="126.56" y="125.68" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.123" href="#gridSVG.pch21" x="153.43" y="159.87" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                      <use id="inz-SCATTERPOINTS.1.1.1.124" href="#gridSVG.pch21" x="239.55" y="227.94" width="15.36" height="15.36" transform=" translate(-7.68,-7.68)" stroke="rgb(127,127,127)" stroke-width="1.3" opacity="1" fill="none" stroke-opacity="1" fill-opacity="0" font-size="12.8"/>
+                    </g>
+                    <g id="inz-trend-linear.1.1.1">
+                      <polyline id="inz-trend-linear.1.1.1.1" points="69.72,98.12 70.21,98.51 70.71,98.9 71.2,99.3 71.7,99.69 72.19,100.08 72.69,100.47 73.18,100.86 73.68,101.25 74.17,101.65 74.67,102.04 75.16,102.43 75.65,102.82 76.15,103.21 76.64,103.6 77.14,104 77.63,104.39 78.13,104.78 78.62,105.17 79.12,105.56 79.61,105.95 80.11,106.35 80.6,106.74 81.09,107.13 81.59,107.52 82.08,107.91 82.58,108.3 83.07,108.7 83.57,109.09 84.06,109.48 84.56,109.87 85.05,110.26 85.55,110.66 86.04,111.05 86.54,111.44 87.03,111.83 87.52,112.22 88.02,112.61 88.51,113.01 89.01,113.4 89.5,113.79 90,114.18 90.49,114.57 90.99,114.96 91.48,115.36 91.98,115.75 92.47,116.14 92.96,116.53 93.46,116.92 93.95,117.31 94.45,117.71 94.94,118.1 95.44,118.49 95.93,118.88 96.43,119.27 96.92,119.66 97.42,120.06 97.91,120.45 98.4,120.84 98.9,121.23 99.39,121.62 99.89,122.01 100.38,122.41 100.88,122.8 101.37,123.19 101.87,123.58 102.36,123.97 102.86,124.36 103.35,124.76 103.84,125.15 104.34,125.54 104.83,125.93 105.33,126.32 105.82,126.71 106.32,127.11 106.81,127.5 107.31,127.89 107.8,128.28 108.3,128.67 108.79,129.07 109.28,129.46 109.78,129.85 110.27,130.24 110.77,130.63 111.26,131.02 111.76,131.42 112.25,131.81 112.75,132.2 113.24,132.59 113.74,132.98 114.23,133.37 114.72,133.77 115.22,134.16 115.71,134.55 116.21,134.94 116.7,135.33 117.2,135.72 117.69,136.12 118.19,136.51 118.68,136.9 119.18,137.29 119.67,137.68 120.17,138.07 120.66,138.47 121.15,138.86 121.65,139.25 122.14,139.64 122.64,140.03 123.13,140.42 123.63,140.82 124.12,141.21 124.62,141.6 125.11,141.99 125.61,142.38 126.1,142.77 126.59,143.17 127.09,143.56 127.58,143.95 128.08,144.34 128.57,144.73 129.07,145.13 129.56,145.52 130.06,145.91 130.55,146.3 131.05,146.69 131.54,147.08 132.03,147.48 132.53,147.87 133.02,148.26 133.52,148.65 134.01,149.04 134.51,149.43 135,149.83 135.5,150.22 135.99,150.61 136.49,151 136.98,151.39 137.47,151.78 137.97,152.18 138.46,152.57 138.96,152.96 139.45,153.35 139.95,153.74 140.44,154.13 140.94,154.53 141.43,154.92 141.93,155.31 142.42,155.7 142.91,156.09 143.41,156.48 143.9,156.88 144.4,157.27 144.89,157.66 145.39,158.05 145.88,158.44 146.38,158.83 146.87,159.23 147.37,159.62 147.86,160.01 148.36,160.4 148.85,160.79 149.34,161.18 149.84,161.58 150.33,161.97 150.83,162.36 151.32,162.75 151.82,163.14 152.31,163.54 152.81,163.93 153.3,164.32 153.8,164.71 154.29,165.1 154.78,165.49 155.28,165.89 155.77,166.28 156.27,166.67 156.76,167.06 157.26,167.45 157.75,167.84 158.25,168.24 158.74,168.63 159.24,169.02 159.73,169.41 160.22,169.8 160.72,170.19 161.21,170.59 161.71,170.98 162.2,171.37 162.7,171.76 163.19,172.15 163.69,172.54 164.18,172.94 164.68,173.33 165.17,173.72 165.66,174.11 166.16,174.5 166.65,174.89 167.15,175.29 167.64,175.68 168.14,176.07 168.63,176.46 169.13,176.85 169.62,177.24 170.12,177.64 170.61,178.03 171.1,178.42 171.6,178.81 172.09,179.2 172.59,179.6 173.08,179.99 173.58,180.38 174.07,180.77 174.57,181.16 175.06,181.55 175.56,181.95 176.05,182.34 176.54,182.73 177.04,183.12 177.53,183.51 178.03,183.9 178.52,184.3 179.02,184.69 179.51,185.08 180.01,185.47 180.5,185.86 181,186.25 181.49,186.65 181.99,187.04 182.48,187.43 182.97,187.82 183.47,188.21 183.96,188.6 184.46,189 184.95,189.39 185.45,189.78 185.94,190.17 186.44,190.56 186.93,190.95 187.43,191.35 187.92,191.74 188.41,192.13 188.91,192.52 189.4,192.91 189.9,193.3 190.39,193.7 190.89,194.09 191.38,194.48 191.88,194.87 192.37,195.26 192.87,195.66 193.36,196.05 193.85,196.44 194.35,196.83 194.84,197.22 195.34,197.61 195.83,198.01 196.33,198.4 196.82,198.79 197.32,199.18 197.81,199.57 198.31,199.96 198.8,200.36 199.29,200.75 199.79,201.14 200.28,201.53 200.78,201.92 201.27,202.31 201.77,202.71 202.26,203.1 202.76,203.49 203.25,203.88 203.75,204.27 204.24,204.66 204.73,205.06 205.23,205.45 205.72,205.84 206.22,206.23 206.71,206.62 207.21,207.01 207.7,207.41 208.2,207.8 208.69,208.19 209.19,208.58 209.68,208.97 210.18,209.36 210.67,209.76 211.16,210.15 211.66,210.54 212.15,210.93 212.65,211.32 213.14,211.71 213.64,212.11 214.13,212.5 214.63,212.89 215.12,213.28 215.62,213.67 216.11,214.07 216.6,214.46 217.1,214.85 217.59,215.24 218.09,215.63 218.58,216.02 219.08,216.42 219.57,216.81 220.07,217.2 220.56,217.59 221.06,217.98 221.55,218.37 222.04,218.77 222.54,219.16 223.03,219.55 223.53,219.94 224.02,220.33 224.52,220.72 225.01,221.12 225.51,221.51 226,221.9 226.5,222.29 226.99,222.68 227.48,223.07 227.98,223.47 228.47,223.86 228.97,224.25 229.46,224.64 229.96,225.03 230.45,225.42 230.95,225.82 231.44,226.21 231.94,226.6 232.43,226.99 232.92,227.38 233.42,227.77 233.91,228.17 234.41,228.56 234.9,228.95 235.4,229.34 235.89,229.73 236.39,230.13 236.88,230.52 237.38,230.91 237.87,231.3 238.36,231.69 238.86,232.08 239.35,232.48 239.85,232.87 240.34,233.26 240.84,233.65 241.33,234.04 241.83,234.43 242.32,234.83 242.82,235.22 243.31,235.61 243.81,236 244.3,236.39 244.79,236.78 245.29,237.18 245.78,237.57 246.28,237.96 246.77,238.35 247.27,238.74 247.76,239.13 248.26,239.53 248.75,239.92 249.25,240.31 249.74,240.7 250.23,241.09 250.73,241.48 251.22,241.88 251.72,242.27 252.21,242.66 252.71,243.05 253.2,243.44 253.7,243.83 254.19,244.23 254.69,244.62 255.18,245.01 255.67,245.4 256.17,245.79 256.66,246.18 257.16,246.58 257.65,246.97 258.15,247.36 258.64,247.75 259.14,248.14 259.63,248.54 260.13,248.93 260.62,249.32 261.11,249.71 261.61,250.1 262.1,250.49 262.6,250.89 263.09,251.28 263.59,251.67 264.08,252.06 264.58,252.45 265.07,252.84 265.57,253.24 266.06,253.63 266.55,254.02 267.05,254.41 267.54,254.8 268.04,255.19 268.53,255.59 269.03,255.98 269.52,256.37 270.02,256.76 270.51,257.15 271.01,257.54 271.5,257.94 272,258.33 272.49,258.72 272.98,259.11 273.48,259.5 273.97,259.89 274.47,260.29 274.96,260.68 275.46,261.07 275.95,261.46 276.45,261.85 276.94,262.24 277.44,262.64 277.93,263.03 278.42,263.42 278.92,263.81 279.41,264.2 279.91,264.6 280.4,264.99 280.9,265.38 281.39,265.77 281.89,266.16 282.38,266.55 282.88,266.95 283.37,267.34 283.86,267.73 284.36,268.12 284.85,268.51 285.35,268.9 285.84,269.3 286.34,269.69 286.83,270.08 287.33,270.47 287.82,270.86 288.32,271.25 288.81,271.65 289.3,272.04 289.8,272.43 290.29,272.82 290.79,273.21 291.28,273.6 291.78,274 292.27,274.39 292.77,274.78 293.26,275.17 293.76,275.56 294.25,275.95 294.74,276.35 295.24,276.74 295.73,277.13 296.23,277.52 296.72,277.91 297.22,278.3 297.71,278.7 298.21,279.09 298.7,279.48 299.2,279.87 299.69,280.26 300.18,280.65 300.68,281.05 301.17,281.44 301.67,281.83 302.16,282.22 302.66,282.61 303.15,283.01 303.65,283.4 304.14,283.79 304.64,284.18 305.13,284.57 305.63,284.96 306.12,285.36 306.61,285.75 307.11,286.14 307.6,286.53 308.1,286.92 308.59,287.31 309.09,287.71 309.58,288.1 310.08,288.49 310.57,288.88 311.07,289.27 311.56,289.66 312.05,290.06 312.55,290.45 313.04,290.84 313.54,291.23 314.03,291.62 314.53,292.01 315.02,292.41 315.52,292.8 316.01,293.19 316.51,293.58 317,293.97 317.49,294.36 317.99,294.76 318.48,295.15 318.98,295.54 319.47,295.93 319.97,296.32 320.46,296.71 320.96,297.11 321.45,297.5 321.95,297.89 322.44,298.28 322.93,298.67 323.43,299.07 323.92,299.46 324.42,299.85 324.91,300.24 325.41,300.63 325.9,301.02 326.4,301.42 326.89,301.81 327.39,302.2 327.88,302.59 328.37,302.98 328.87,303.37 329.36,303.77 329.86,304.16 330.35,304.55 330.85,304.94 331.34,305.33 331.84,305.72 332.33,306.12 332.83,306.51 333.32,306.9 333.82,307.29 334.31,307.68 334.8,308.07 335.3,308.47 335.79,308.86 336.29,309.25 336.78,309.64 337.28,310.03 337.77,310.42 338.27,310.82 338.76,311.21 339.26,311.6 339.75,311.99 340.24,312.38 340.74,312.77 341.23,313.17 341.73,313.56 342.22,313.95 342.72,314.34 343.21,314.73 343.71,315.12 344.2,315.52 344.7,315.91 345.19,316.3 345.68,316.69 346.18,317.08 346.67,317.48 347.17,317.87 347.66,318.26 348.16,318.65 348.65,319.04 349.15,319.43 349.64,319.83 350.14,320.22 350.63,320.61 351.12,321 351.62,321.39 352.11,321.78 352.61,322.18 353.1,322.57 353.6,322.96 354.09,323.35 354.59,323.74 355.08,324.13 355.58,324.53 356.07,324.92 356.56,325.31 357.06,325.7 357.55,326.09 358.05,326.48 358.54,326.88 359.04,327.27 359.53,327.66 360.03,328.05 360.52,328.44 361.02,328.83 361.51,329.23 362,329.62 362.5,330.01 362.99,330.4 363.49,330.79 363.98,331.18 364.48,331.58 364.97,331.97 365.47,332.36 365.96,332.75 366.46,333.14 366.95,333.54 367.45,333.93 367.94,334.32 368.43,334.71 368.93,335.1 369.42,335.49 369.92,335.89 370.41,336.28 370.91,336.67 371.4,337.06 371.9,337.45 372.39,337.84 372.89,338.24 373.38,338.63 373.87,339.02 374.37,339.41 374.86,339.8 375.36,340.19 375.85,340.59 376.35,340.98 376.84,341.37 377.34,341.76 377.83,342.15 378.33,342.54 378.82,342.94 379.31,343.33 379.81,343.72 380.3,344.11 380.8,344.5 381.29,344.89 381.79,345.29 382.28,345.68 382.78,346.07 383.27,346.46 383.77,346.85 384.26,347.24 384.75,347.64 385.25,348.03 385.74,348.42 386.24,348.81 386.73,349.2 387.23,349.6 387.72,349.99 388.22,350.38 388.71,350.77 389.21,351.16 389.7,351.55 390.19,351.95 390.69,352.34 391.18,352.73 391.68,353.12 392.17,353.51 392.67,353.9 393.16,354.3 393.66,354.69 394.15,355.08 394.65,355.47 395.14,355.86 395.64,356.25 396.13,356.65 396.62,357.04 397.12,357.43 397.61,357.82 398.11,358.21 398.6,358.6 399.1,359 399.59,359.39 400.09,359.78 400.58,360.17 401.08,360.56 401.57,360.95 402.06,361.35 402.56,361.74 403.05,362.13 403.55,362.52 404.04,362.91 404.54,363.3 405.03,363.7 405.53,364.09 406.02,364.48 406.52,364.87 407.01,365.26 407.5,365.65 408,366.05 408.49,366.44 408.99,366.83 409.48,367.22 409.98,367.61 410.47,368.01 410.97,368.4 411.46,368.79 411.96,369.18 412.45,369.57 412.94,369.96 413.44,370.36 413.93,370.75 414.43,371.14 414.92,371.53 415.42,371.92 415.91,372.31 416.41,372.71 416.9,373.1 417.4,373.49 417.89,373.88 418.38,374.27 418.88,374.66 419.37,375.06 419.87,375.45 420.36,375.84 420.86,376.23 421.35,376.62 421.85,377.01 422.34,377.41 422.84,377.8 423.33,378.19 423.82,378.58 424.32,378.97 424.81,379.36 425.31,379.76 425.8,380.15 426.3,380.54 426.79,380.93 427.29,381.32 427.78,381.71 428.28,382.11 428.77,382.5 429.27,382.89 429.76,383.28 430.25,383.67 430.75,384.07 431.24,384.46 431.74,384.85 432.23,385.24 432.73,385.63 433.22,386.02 433.72,386.42 434.21,386.81 434.71,387.2 435.2,387.59 435.69,387.98 436.19,388.37 436.68,388.77 437.18,389.16 437.67,389.55 438.17,389.94 438.66,390.33 439.16,390.72 439.65,391.12 440.15,391.51 440.64,391.9 441.13,392.29 441.63,392.68 442.12,393.07 442.62,393.47 443.11,393.86 443.61,394.25 444.1,394.64 444.6,395.03 445.09,395.42 445.59,395.82 446.08,396.21 446.57,396.6 447.07,396.99 447.56,397.38 448.06,397.77 448.55,398.17 449.05,398.56 449.54,398.95 450.04,399.34 450.53,399.73 451.03,400.12 451.52,400.52 452.01,400.91 452.51,401.3 453,401.69 453.5,402.08 453.99,402.48 454.49,402.87 454.98,403.26 455.48,403.65 455.97,404.04 456.47,404.43 456.96,404.83 457.46,405.22 457.95,405.61 458.44,406 458.94,406.39 459.43,406.78 459.93,407.18 460.42,407.57 460.92,407.96 461.41,408.35 461.91,408.74 462.4,409.13 462.9,409.53 463.39,409.92 463.88,410.31 464.38,410.7 464.87,411.09 465.37,411.48 465.86,411.88 466.36,412.27 466.85,412.66 467.35,413.05 467.84,413.44 468.34,413.83 468.83,414.23 469.32,414.62 469.82,415.01 470.31,415.4 470.81,415.79 471.3,416.18 471.8,416.58 472.29,416.97 472.79,417.36 473.28,417.75 473.78,418.14 474.27,418.54 474.76,418.93 475.26,419.32 475.75,419.71 476.25,420.1 476.74,420.49 477.24,420.89 477.73,421.28 478.23,421.67 478.72,422.06 479.22,422.45 479.71,422.84 480.2,423.24 480.7,423.63 481.19,424.02 481.69,424.41 482.18,424.8 482.68,425.19 483.17,425.59 483.67,425.98 484.16,426.37 484.66,426.76 485.15,427.15 485.64,427.54 486.14,427.94 486.63,428.33 487.13,428.72 487.62,429.11 488.12,429.5 488.61,429.89 489.11,430.29 489.6,430.68 490.1,431.07 490.59,431.46 491.09,431.85 491.58,432.24 492.07,432.64 492.57,433.03 493.06,433.42 493.56,433.81 494.05,434.2 494.55,434.59 495.04,434.99 495.54,435.38 496.03,435.77 496.53,436.16 497.02,436.55 497.51,436.95 498.01,437.34 498.5,437.73 499,438.12 499.49,438.51 499.99,438.9 500.48,439.3 500.98,439.69 501.47,440.08 501.97,440.47 502.46,440.86 502.95,441.25 503.45,441.65 503.94,442.04 504.44,442.43 504.93,442.82 505.43,443.21 505.92,443.6 506.42,444 506.91,444.39 507.41,444.78 507.9,445.17 508.39,445.56 508.89,445.95 509.38,446.35 509.88,446.74 510.37,447.13 510.87,447.52 511.36,447.91 511.86,448.3 512.35,448.7 512.85,449.09 513.34,449.48 513.83,449.87 514.33,450.26 514.82,450.65 515.32,451.05 515.81,451.44 516.31,451.83 516.8,452.22 517.3,452.61 517.79,453.01 518.29,453.4 518.78,453.79 519.28,454.18 519.77,454.57 520.26,454.96 520.76,455.36 521.25,455.75 521.75,456.14 522.24,456.53 522.74,456.92 523.23,457.31 523.73,457.71 524.22,458.1 524.72,458.49 525.21,458.88 525.7,459.27 526.2,459.66 526.69,460.06 527.19,460.45 527.68,460.84 528.18,461.23 528.67,461.62 529.17,462.01 529.66,462.41 530.16,462.8 530.65,463.19 531.14,463.58 531.64,463.97 532.13,464.36 532.63,464.76 533.12,465.15 533.62,465.54 534.11,465.93 534.61,466.32 535.1,466.71 535.6,467.11 536.09,467.5 536.58,467.89 537.08,468.28 537.57,468.67 538.07,469.06 538.56,469.46 539.06,469.85 539.55,470.24 540.05,470.63 540.54,471.02 541.04,471.42 541.53,471.81 542.02,472.2 542.52,472.59 543.01,472.98 543.51,473.37 544,473.77 544.5,474.16 544.99,474.55 545.49,474.94 545.98,475.33 546.48,475.72 546.97,476.12 547.46,476.51 547.96,476.9 548.45,477.29 548.95,477.68 549.44,478.07 549.94,478.47 550.43,478.86 550.93,479.25 551.42,479.64 551.92,480.03 552.41,480.42 552.91,480.82 553.4,481.21 553.89,481.6 554.39,481.99 554.88,482.38 555.38,482.77 555.87,483.17 556.37,483.56 556.86,483.95 557.36,484.34 557.85,484.73 558.35,485.12 558.84,485.52 559.33,485.91 559.83,486.3 560.32,486.69 560.82,487.08 561.31,487.48 561.81,487.87 562.3,488.26 562.8,488.65 563.29,489.04 563.79,489.43 564.28,489.83" stroke="rgb(0,0,255)" stroke-width="2" stroke-dasharray="none" stroke-opacity="1" fill="none"/>
+                    </g>
+                  </g>
+                  <g id="inz-rect-tp.1.1.1">
+                    <rect id="inz-rect-tp.1.1.1.1" x="69.72" y="91.72" width="494.56" height="380.56" transform="" fill="none" fill-opacity="0"/>
+                  </g>
+                  <g id="container::VP:TOPlayout::GRID.VP.841::VP:PLOTlayout::GRID.VP.842::GRID.VP.843::GRID.VP.844.1">
+                    <g id="inz-xaxis-bottom.1.1.1" font-size="12.8">
+                      <g id="major.1">
+                        <polyline id="major.1.1" points="91.42,91.72 554.83,91.72" fill="none"/>
+                      </g>
+                      <g id="ticks.1">
+                        <polyline id="ticks.1.1" points="91.42,91.72 91.42,80.2" fill="none"/>
+                        <polyline id="ticks.1.2" points="184.1,91.72 184.1,80.2" fill="none"/>
+                        <polyline id="ticks.1.3" points="276.79,91.72 276.79,80.2" fill="none"/>
+                        <polyline id="ticks.1.4" points="369.47,91.72 369.47,80.2" fill="none"/>
+                        <polyline id="ticks.1.5" points="462.15,91.72 462.15,80.2" fill="none"/>
+                        <polyline id="ticks.1.6" points="554.83,91.72 554.83,80.2" fill="none"/>
+                      </g>
+                      <g id="labels.1">
+                        <g id="labels.1.1" transform="translate(91.42, 57.16)" stroke-width="0.1">
+                          <g id="labels.1.1.scale" transform="scale(1, -1)">
+                            <text x="0" y="0" id="labels.1.1.text" text-anchor="middle" fill="rgb(0,0,0)" fill-opacity="1">
+                              <tspan id="labels.1.1.tspan.1" dy="7.5" x="0">0</tspan>
+                            </text>
+                          </g>
+                        </g>
+                        <g id="labels.1.2" transform="translate(184.1, 57.16)" stroke-width="0.1">
+                          <g id="labels.1.2.scale" transform="scale(1, -1)">
+                            <text x="0" y="0" id="labels.1.2.text" text-anchor="middle" fill="rgb(0,0,0)" fill-opacity="1">
+                              <tspan id="labels.1.2.tspan.1" dy="7.5" x="0">10</tspan>
+                            </text>
+                          </g>
+                        </g>
+                        <g id="labels.1.3" transform="translate(276.79, 57.16)" stroke-width="0.1">
+                          <g id="labels.1.3.scale" transform="scale(1, -1)">
+                            <text x="0" y="0" id="labels.1.3.text" text-anchor="middle" fill="rgb(0,0,0)" fill-opacity="1">
+                              <tspan id="labels.1.3.tspan.1" dy="7.5" x="0">20</tspan>
+                            </text>
+                          </g>
+                        </g>
+                        <g id="labels.1.4" transform="translate(369.47, 57.16)" stroke-width="0.1">
+                          <g id="labels.1.4.scale" transform="scale(1, -1)">
+                            <text x="0" y="0" id="labels.1.4.text" text-anchor="middle" fill="rgb(0,0,0)" fill-opacity="1">
+                              <tspan id="labels.1.4.tspan.1" dy="7.5" x="0">30</tspan>
+                            </text>
+                          </g>
+                        </g>
+                        <g id="labels.1.5" transform="translate(462.15, 57.16)" stroke-width="0.1">
+                          <g id="labels.1.5.scale" transform="scale(1, -1)">
+                            <text x="0" y="0" id="labels.1.5.text" text-anchor="middle" fill="rgb(0,0,0)" fill-opacity="1">
+                              <tspan id="labels.1.5.tspan.1" dy="7.5" x="0">40</tspan>
+                            </text>
+                          </g>
+                        </g>
+                        <g id="labels.1.6" transform="translate(554.83, 57.16)" stroke-width="0.1">
+                          <g id="labels.1.6.scale" transform="scale(1, -1)">
+                            <text x="0" y="0" id="labels.1.6.text" text-anchor="middle" fill="rgb(0,0,0)" fill-opacity="1">
+                              <tspan id="labels.1.6.tspan.1" dy="7.5" x="0">50</tspan>
+                            </text>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                    <g id="inz-yaxis-left.1.1.1" font-size="12.8">
+                      <g id="major.2">
+                        <polyline id="major.2.1" points="69.72,106.19 69.72,416.35" fill="none"/>
+                      </g>
+                      <g id="ticks.2">
+                        <polyline id="ticks.2.1" points="69.72,106.19 58.2,106.19" fill="none"/>
+                        <polyline id="ticks.2.2" points="69.72,209.57 58.2,209.57" fill="none"/>
+                        <polyline id="ticks.2.3" points="69.72,312.96 58.2,312.96" fill="none"/>
+                        <polyline id="ticks.2.4" points="69.72,416.35 58.2,416.35" fill="none"/>
+                      </g>
+                      <g id="labels.2">
+                        <g id="labels.2.1" transform="translate(46.68, 106.19)" stroke-width="0.1">
+                          <g id="labels.2.1.scale" transform="scale(1, -1)">
+                            <text x="0" y="0" id="labels.2.1.text" transform="rotate(-90)" text-anchor="middle" fill="rgb(0,0,0)" fill-opacity="1">
+                              <tspan id="labels.2.1.tspan.1" dy="0" x="0">0</tspan>
+                            </text>
+                          </g>
+                        </g>
+                        <g id="labels.2.2" transform="translate(46.68, 209.57)" stroke-width="0.1">
+                          <g id="labels.2.2.scale" transform="scale(1, -1)">
+                            <text x="0" y="0" id="labels.2.2.text" transform="rotate(-90)" text-anchor="middle" fill="rgb(0,0,0)" fill-opacity="1">
+                              <tspan id="labels.2.2.tspan.1" dy="0" x="0">5</tspan>
+                            </text>
+                          </g>
+                        </g>
+                        <g id="labels.2.3" transform="translate(46.68, 312.96)" stroke-width="0.1">
+                          <g id="labels.2.3.scale" transform="scale(1, -1)">
+                            <text x="0" y="0" id="labels.2.3.text" transform="rotate(-90)" text-anchor="middle" fill="rgb(0,0,0)" fill-opacity="1">
+                              <tspan id="labels.2.3.tspan.1" dy="0" x="0">10</tspan>
+                            </text>
+                          </g>
+                        </g>
+                        <g id="labels.2.4" transform="translate(46.68, 416.35)" stroke-width="0.1">
+                          <g id="labels.2.4.scale" transform="scale(1, -1)">
+                            <text x="0" y="0" id="labels.2.4.text" transform="rotate(-90)" text-anchor="middle" fill="rgb(0,0,0)" fill-opacity="1">
+                              <tspan id="labels.2.4.tspan.1" dy="0" x="0">15</tspan>
+                            </text>
+                          </g>
+                        </g>
+                      </g>
+                    </g>
+                    <g id="inz-yaxis-right.1.1.1" font-size="12.8">
+                      <g id="major.3">
+                        <polyline id="major.3.1" points="564.28,106.19 564.28,416.35" fill="none"/>
+                      </g>
+                      <g id="ticks.3">
+                        <polyline id="ticks.3.1" points="564.28,106.19 575.8,106.19" fill="none"/>
+                        <polyline id="ticks.3.2" points="564.28,209.57 575.8,209.57" fill="none"/>
+                        <polyline id="ticks.3.3" points="564.28,312.96 575.8,312.96" fill="none"/>
+                        <polyline id="ticks.3.4" points="564.28,416.35 575.8,416.35" fill="none"/>
+                      </g>
+                    </g>
+                  </g>
+                  <g id="container::VP:TOPlayout::GRID.VP.841::VP:PLOTlayout::GRID.VP.842::GRID.VP.843::GRID.VP.845.1">
+                    <g id="container::VP:TOPlayout::GRID.VP.841::VP:PLOTlayout::GRID.VP.842::GRID.VP.843::GRID.VP.845::GRID.VP.846.1">
+                      <g id="inz-xaxis-top.1.1.1" font-size="12.8">
+                        <g id="major.4">
+                          <polyline id="major.4.1" points="91.42,472.28 554.83,472.28" fill="none"/>
+                        </g>
+                        <g id="ticks.4">
+                          <polyline id="ticks.4.1" points="91.42,472.28 91.42,483.8" fill="none"/>
+                          <polyline id="ticks.4.2" points="184.1,472.28 184.1,483.8" fill="none"/>
+                          <polyline id="ticks.4.3" points="276.79,472.28 276.79,483.8" fill="none"/>
+                          <polyline id="ticks.4.4" points="369.47,472.28 369.47,483.8" fill="none"/>
+                          <polyline id="ticks.4.5" points="462.15,472.28 462.15,483.8" fill="none"/>
+                          <polyline id="ticks.4.6" points="554.83,472.28 554.83,483.8" fill="none"/>
+                        </g>
+                      </g>
+                    </g>
+                  </g>
+                  <script type="application/ecmascript" id="linkedJSONdata"><![CDATA[
+var chart = {"type":["scatter"],"varNames":["CO2Emissions","EnergyUsePerPerson"],"data":[{"CO2Emissions":1.8041,"EnergyUsePerPerson":0.9732},{"CO2Emissions":1.7555,"EnergyUsePerPerson":0.7956},{"CO2Emissions":0.1558,"EnergyUsePerPerson":0.6173},{"CO2Emissions":10.5298,"EnergyUsePerPerson":6.25},{"CO2Emissions":5.2861,"EnergyUsePerPerson":2.2946},{"CO2Emissions":0.0895,"EnergyUsePerPerson":0.3959},{"CO2Emissions":7.8737,"EnergyUsePerPerson":4.0791},{"CO2Emissions":0.3584,"EnergyUsePerPerson":0.2542},{"CO2Emissions":4.2079,"EnergyUsePerPerson":1.8046},{"CO2Emissions":9.5427,"EnergyUsePerPerson":3.8789},{"CO2Emissions":8.5009,"EnergyUsePerPerson":3.829},{"CO2Emissions":35.3736,"EnergyUsePerPerson":14.5308},{"CO2Emissions":0.2663,"EnergyUsePerPerson":0.461},{"CO2Emissions":1.4421,"EnergyUsePerPerson":0.6179},{"CO2Emissions":23.09,"EnergyUsePerPerson":8.7847},{"CO2Emissions":1.45,"EnergyUsePerPerson":0.5286},{"CO2Emissions":8.5229,"EnergyUsePerPerson":3.3944},{"CO2Emissions":4.6581,"EnergyUsePerPerson":1.8497},{"CO2Emissions":0.7827,"EnergyUsePerPerson":0.5409},{"CO2Emissions":7.0367,"EnergyUsePerPerson":2.9431},{"CO2Emissions":18.2657,"EnergyUsePerPerson":5.7788},{"CO2Emissions":13.6952,"EnergyUsePerPerson":4.0579},{"CO2Emissions":1.4934,"EnergyUsePerPerson":0.5755},{"CO2Emissions":48.5944,"EnergyUsePerPerson":15.3104},{"CO2Emissions":2.6442,"EnergyUsePerPerson":0.9329},{"CO2Emissions":4.3915,"EnergyUsePerPerson":1.5867},{"CO2Emissions":15.9586,"EnergyUsePerPerson":6.0256},{"CO2Emissions":7.6124,"EnergyUsePerPerson":2.6546},{"CO2Emissions":5.2979,"EnergyUsePerPerson":1.5748},{"CO2Emissions":0.3694,"EnergyUsePerPerson":0.5413},{"CO2Emissions":3.6629,"EnergyUsePerPerson":1.2215},{"CO2Emissions":7.2931,"EnergyUsePerPerson":3.0519},{"CO2Emissions":0.252,"EnergyUsePerPerson":0.4436},{"CO2Emissions":21.8969,"EnergyUsePerPerson":8.6098},{"CO2Emissions":27.6028,"EnergyUsePerPerson":9.4335},{"CO2Emissions":1.1654,"EnergyUsePerPerson":0.6364},{"CO2Emissions":8.269,"EnergyUsePerPerson":2.5676},{"CO2Emissions":8.025,"EnergyUsePerPerson":2.8192},{"CO2Emissions":1.0008,"EnergyUsePerPerson":0.3157},{"CO2Emissions":8.1788,"EnergyUsePerPerson":4.0238},{"CO2Emissions":0.2501,"EnergyUsePerPerson":0.2848},{"CO2Emissions":0.6986,"EnergyUsePerPerson":0.6979},{"CO2Emissions":1.5132,"EnergyUsePerPerson":0.5257},{"CO2Emissions":4.3081,"EnergyUsePerPerson":1.6369},{"CO2Emissions":0.1044,"EnergyUsePerPerson":0.4206},{"CO2Emissions":4.5028,"EnergyUsePerPerson":2.8084},{"CO2Emissions":7.4689,"EnergyUsePerPerson":2.9416},{"CO2Emissions":2.0238,"EnergyUsePerPerson":1.2965},{"CO2Emissions":1.5548,"EnergyUsePerPerson":1.3717},{"CO2Emissions":10.5482,"EnergyUsePerPerson":6.6388},{"CO2Emissions":1.0636,"EnergyUsePerPerson":0.734},{"CO2Emissions":0.7628,"EnergyUsePerPerson":0.4437},{"CO2Emissions":0.9119,"EnergyUsePerPerson":0.5958},{"CO2Emissions":9.5372,"EnergyUsePerPerson":4.069},{"CO2Emissions":9.971,"EnergyUsePerPerson":3.3793},{"CO2Emissions":18.546,"EnergyUsePerPerson":7.4879},{"CO2Emissions":14.6544,"EnergyUsePerPerson":4.479},{"CO2Emissions":1.9119,"EnergyUsePerPerson":1.0145},{"CO2Emissions":0.581,"EnergyUsePerPerson":0.4423},{"CO2Emissions":0.4504,"EnergyUsePerPerson":0.261},{"CO2Emissions":3.2327,"EnergyUsePerPerson":1.0876},{"CO2Emissions":1.4761,"EnergyUsePerPerson":0.649},{"CO2Emissions":1.908,"EnergyUsePerPerson":0.7383},{"CO2Emissions":6.0703,"EnergyUsePerPerson":4.1136},{"CO2Emissions":1.2978,"EnergyUsePerPerson":0.6557},{"CO2Emissions":4.5856,"EnergyUsePerPerson":1.9302},{"CO2Emissions":7.9427,"EnergyUsePerPerson":2.4013},{"CO2Emissions":0.0837,"EnergyUsePerPerson":0.1369},{"CO2Emissions":4.1556,"EnergyUsePerPerson":1.577},{"CO2Emissions":8.5215,"EnergyUsePerPerson":3.4951},{"CO2Emissions":0.3666,"EnergyUsePerPerson":0.385},{"CO2Emissions":0.7288,"EnergyUsePerPerson":0.7448},{"CO2Emissions":9.7716,"EnergyUsePerPerson":3.131},{"CO2Emissions":3.254,"EnergyUsePerPerson":0.8358},{"CO2Emissions":6.1828,"EnergyUsePerPerson":2.0308},{"CO2Emissions":0.5375,"EnergyUsePerPerson":0.3925},{"CO2Emissions":16.3504,"EnergyUsePerPerson":7.9458},{"CO2Emissions":2.4407,"EnergyUsePerPerson":0.9127},{"CO2Emissions":7.8673,"EnergyUsePerPerson":1.3114},{"CO2Emissions":24.6568,"EnergyUsePerPerson":9.3978},{"CO2Emissions":5.9184,"EnergyUsePerPerson":1.5155},{"CO2Emissions":0.1054,"EnergyUsePerPerson":0.3321},{"CO2Emissions":9.89,"EnergyUsePerPerson":5.4696},{"CO2Emissions":31.2947,"EnergyUsePerPerson":10.9351},{"CO2Emissions":2.4898,"EnergyUsePerPerson":1.2457},{"CO2Emissions":4.0865,"EnergyUsePerPerson":1.3019},{"CO2Emissions":1.4194,"EnergyUsePerPerson":0.6854},{"CO2Emissions":11.9829,"EnergyUsePerPerson":4.8502},{"CO2Emissions":1.4426,"EnergyUsePerPerson":0.6576},{"CO2Emissions":5.2896,"EnergyUsePerPerson":2.0432},{"CO2Emissions":5.4869,"EnergyUsePerPerson":2.2999},{"CO2Emissions":11.187,"EnergyUsePerPerson":4.4937},{"CO2Emissions":7.1406,"EnergyUsePerPerson":16.8685},{"CO2Emissions":8.2686,"EnergyUsePerPerson":1.5776},{"CO2Emissions":4.1018,"EnergyUsePerPerson":1.1831},{"CO2Emissions":5.3331,"EnergyUsePerPerson":3.5013},{"CO2Emissions":0.2955,"EnergyUsePerPerson":0.3409},{"CO2Emissions":4.3891,"EnergyUsePerPerson":1.8384},{"CO2Emissions":6.5708,"EnergyUsePerPerson":4.9237},{"CO2Emissions":4.0219,"EnergyUsePerPerson":1.3888},{"CO2Emissions":1.9967,"EnergyUsePerPerson":0.9147},{"CO2Emissions":9.8183,"EnergyUsePerPerson":3.9794},{"CO2Emissions":8.6619,"EnergyUsePerPerson":2.707},{"CO2Emissions":0.3192,"EnergyUsePerPerson":0.1911},{"CO2Emissions":2.5472,"EnergyUsePerPerson":1.1007},{"CO2Emissions":3.3418,"EnergyUsePerPerson":1.979},{"CO2Emissions":6.4882,"EnergyUsePerPerson":2.9312},{"CO2Emissions":0.4636,"EnergyUsePerPerson":0.3693},{"CO2Emissions":1.6362,"EnergyUsePerPerson":0.4786},{"CO2Emissions":2.1105,"EnergyUsePerPerson":0.7845},{"CO2Emissions":6.4967,"EnergyUsePerPerson":2.5118},{"CO2Emissions":10.533,"EnergyUsePerPerson":4.8372},{"CO2Emissions":0.365,"EnergyUsePerPerson":0.3643},{"CO2Emissions":6.9017,"EnergyUsePerPerson":3.3855},{"CO2Emissions":5.3157,"EnergyUsePerPerson":5.38},{"CO2Emissions":5.4529,"EnergyUsePerPerson":2.6358},{"CO2Emissions":0.2703,"EnergyUsePerPerson":0.3182},{"CO2Emissions":0.6154,"EnergyUsePerPerson":0.7381},{"CO2Emissions":0.9507,"EnergyUsePerPerson":0.4874},{"CO2Emissions":9.4266,"EnergyUsePerPerson":3.0276},{"CO2Emissions":2.685,"EnergyUsePerPerson":0.9175},{"CO2Emissions":3.7906,"EnergyUsePerPerson":0.9428},{"CO2Emissions":6.6901,"EnergyUsePerPerson":2.5961},{"CO2Emissions":15.9822,"EnergyUsePerPerson":5.8882}],"colGroupNo":[0],"trendInfo":{"linear":[0.4412,0.355,0.88],"quadratic":[null],"cubic":[null],"rank.cor":[0.9534]}};
+]]></script>
+                </g>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg> 
+
+        <div class = "control" id="control">
+          <button type="button" class="btn btn-info" onclick="reset()" id="reset">
+            <span class="glyphicon glyphicon-refresh"> </span> Reset </button>
+          <button type="button" class="btn btn-info" onclick="showTable()" id="viewTable">
+            <span class="glyphicon glyphicon-list-alt"> </span> Table </button>
+        </div>
+    </div>
+
+    <div class = "tbl-div">
+<table id="table" class="table table-condensed table-hover" cellspacing="0">
+<caption>Data</caption>
+ <thead>
+  <tr>
+   <th style="text-align:left;">   </th>
+   <th style="text-align:center;"> CO2Emissions </th>
+   <th style="text-align:center;"> EnergyUsePerPerson </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:left;"> 1 </td>
+   <td style="text-align:center;"> 1.8041062 </td>
+   <td style="text-align:center;"> 0.9732011 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 2 </td>
+   <td style="text-align:center;"> 1.7555124 </td>
+   <td style="text-align:center;"> 0.7955640 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 3 </td>
+   <td style="text-align:center;"> 0.1557938 </td>
+   <td style="text-align:center;"> 0.6172514 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 4 </td>
+   <td style="text-align:center;"> 10.5297688 </td>
+   <td style="text-align:center;"> 6.2500252 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 5 </td>
+   <td style="text-align:center;"> 5.2861258 </td>
+   <td style="text-align:center;"> 2.2946432 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 6 </td>
+   <td style="text-align:center;"> 0.0894901 </td>
+   <td style="text-align:center;"> 0.3959094 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 7 </td>
+   <td style="text-align:center;"> 7.8736568 </td>
+   <td style="text-align:center;"> 4.0791422 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 8 </td>
+   <td style="text-align:center;"> 0.3583733 </td>
+   <td style="text-align:center;"> 0.2541862 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 9 </td>
+   <td style="text-align:center;"> 4.2079491 </td>
+   <td style="text-align:center;"> 1.8046324 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 10 </td>
+   <td style="text-align:center;"> 9.5426905 </td>
+   <td style="text-align:center;"> 3.8789071 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 11 </td>
+   <td style="text-align:center;"> 8.5009272 </td>
+   <td style="text-align:center;"> 3.8290257 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 12 </td>
+   <td style="text-align:center;"> 35.3735926 </td>
+   <td style="text-align:center;"> 14.5308255 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 13 </td>
+   <td style="text-align:center;"> 0.2663084 </td>
+   <td style="text-align:center;"> 0.4610096 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 14 </td>
+   <td style="text-align:center;"> 1.4421219 </td>
+   <td style="text-align:center;"> 0.6178648 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 15 </td>
+   <td style="text-align:center;"> 23.0900292 </td>
+   <td style="text-align:center;"> 8.7847075 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 16 </td>
+   <td style="text-align:center;"> 1.4500056 </td>
+   <td style="text-align:center;"> 0.5285534 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 17 </td>
+   <td style="text-align:center;"> 8.5228762 </td>
+   <td style="text-align:center;"> 3.3943645 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 18 </td>
+   <td style="text-align:center;"> 4.6581427 </td>
+   <td style="text-align:center;"> 1.8497196 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 19 </td>
+   <td style="text-align:center;"> 0.7827060 </td>
+   <td style="text-align:center;"> 0.5409141 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 20 </td>
+   <td style="text-align:center;"> 7.0366642 </td>
+   <td style="text-align:center;"> 2.9431445 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 21 </td>
+   <td style="text-align:center;"> 18.2656569 </td>
+   <td style="text-align:center;"> 5.7788173 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 22 </td>
+   <td style="text-align:center;"> 13.6952416 </td>
+   <td style="text-align:center;"> 4.0578723 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 23 </td>
+   <td style="text-align:center;"> 1.4933816 </td>
+   <td style="text-align:center;"> 0.5754563 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 24 </td>
+   <td style="text-align:center;"> 48.5943775 </td>
+   <td style="text-align:center;"> 15.3104308 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 25 </td>
+   <td style="text-align:center;"> 2.6441748 </td>
+   <td style="text-align:center;"> 0.9329048 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 26 </td>
+   <td style="text-align:center;"> 4.3914565 </td>
+   <td style="text-align:center;"> 1.5866597 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 27 </td>
+   <td style="text-align:center;"> 15.9586362 </td>
+   <td style="text-align:center;"> 6.0255696 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 28 </td>
+   <td style="text-align:center;"> 7.6123775 </td>
+   <td style="text-align:center;"> 2.6545809 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 29 </td>
+   <td style="text-align:center;"> 5.2978996 </td>
+   <td style="text-align:center;"> 1.5748313 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 30 </td>
+   <td style="text-align:center;"> 0.3694281 </td>
+   <td style="text-align:center;"> 0.5413207 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 31 </td>
+   <td style="text-align:center;"> 3.6629354 </td>
+   <td style="text-align:center;"> 1.2215265 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 32 </td>
+   <td style="text-align:center;"> 7.2930888 </td>
+   <td style="text-align:center;"> 3.0518988 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 33 </td>
+   <td style="text-align:center;"> 0.2519833 </td>
+   <td style="text-align:center;"> 0.4436149 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 34 </td>
+   <td style="text-align:center;"> 21.8969105 </td>
+   <td style="text-align:center;"> 8.6097964 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 35 </td>
+   <td style="text-align:center;"> 27.6028196 </td>
+   <td style="text-align:center;"> 9.4335097 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 36 </td>
+   <td style="text-align:center;"> 1.1653614 </td>
+   <td style="text-align:center;"> 0.6364092 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 37 </td>
+   <td style="text-align:center;"> 8.2690402 </td>
+   <td style="text-align:center;"> 2.5676135 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 38 </td>
+   <td style="text-align:center;"> 8.0250015 </td>
+   <td style="text-align:center;"> 2.8192032 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 39 </td>
+   <td style="text-align:center;"> 1.0008282 </td>
+   <td style="text-align:center;"> 0.3156707 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 40 </td>
+   <td style="text-align:center;"> 8.1787645 </td>
+   <td style="text-align:center;"> 4.0238009 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 41 </td>
+   <td style="text-align:center;"> 0.2500599 </td>
+   <td style="text-align:center;"> 0.2848426 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 42 </td>
+   <td style="text-align:center;"> 0.6985817 </td>
+   <td style="text-align:center;"> 0.6978737 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 43 </td>
+   <td style="text-align:center;"> 1.5131827 </td>
+   <td style="text-align:center;"> 0.5257377 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 44 </td>
+   <td style="text-align:center;"> 4.3081374 </td>
+   <td style="text-align:center;"> 1.6369282 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 45 </td>
+   <td style="text-align:center;"> 0.1044199 </td>
+   <td style="text-align:center;"> 0.4206053 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 46 </td>
+   <td style="text-align:center;"> 4.5028487 </td>
+   <td style="text-align:center;"> 2.8083955 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 47 </td>
+   <td style="text-align:center;"> 7.4689423 </td>
+   <td style="text-align:center;"> 2.9416360 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 48 </td>
+   <td style="text-align:center;"> 2.0237728 </td>
+   <td style="text-align:center;"> 1.2965412 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 49 </td>
+   <td style="text-align:center;"> 1.5548400 </td>
+   <td style="text-align:center;"> 1.3717088 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 50 </td>
+   <td style="text-align:center;"> 10.5482462 </td>
+   <td style="text-align:center;"> 6.6388225 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 51 </td>
+   <td style="text-align:center;"> 1.0635773 </td>
+   <td style="text-align:center;"> 0.7339852 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 52 </td>
+   <td style="text-align:center;"> 0.7627881 </td>
+   <td style="text-align:center;"> 0.4436955 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 53 </td>
+   <td style="text-align:center;"> 0.9119232 </td>
+   <td style="text-align:center;"> 0.5957955 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 54 </td>
+   <td style="text-align:center;"> 9.5371698 </td>
+   <td style="text-align:center;"> 4.0689540 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 55 </td>
+   <td style="text-align:center;"> 9.9709785 </td>
+   <td style="text-align:center;"> 3.3793051 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 56 </td>
+   <td style="text-align:center;"> 18.5459917 </td>
+   <td style="text-align:center;"> 7.4879303 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 57 </td>
+   <td style="text-align:center;"> 14.6543986 </td>
+   <td style="text-align:center;"> 4.4790423 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 58 </td>
+   <td style="text-align:center;"> 1.9119334 </td>
+   <td style="text-align:center;"> 1.0144609 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 59 </td>
+   <td style="text-align:center;"> 0.5809702 </td>
+   <td style="text-align:center;"> 0.4422963 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 60 </td>
+   <td style="text-align:center;"> 0.4504350 </td>
+   <td style="text-align:center;"> 0.2610367 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 61 </td>
+   <td style="text-align:center;"> 3.2326665 </td>
+   <td style="text-align:center;"> 1.0876192 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 62 </td>
+   <td style="text-align:center;"> 1.4760918 </td>
+   <td style="text-align:center;"> 0.6489815 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 63 </td>
+   <td style="text-align:center;"> 1.9079674 </td>
+   <td style="text-align:center;"> 0.7382707 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 64 </td>
+   <td style="text-align:center;"> 6.0703484 </td>
+   <td style="text-align:center;"> 4.1136215 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 65 </td>
+   <td style="text-align:center;"> 1.2977527 </td>
+   <td style="text-align:center;"> 0.6556513 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 66 </td>
+   <td style="text-align:center;"> 4.5855609 </td>
+   <td style="text-align:center;"> 1.9301727 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 67 </td>
+   <td style="text-align:center;"> 7.9427348 </td>
+   <td style="text-align:center;"> 2.4012624 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 68 </td>
+   <td style="text-align:center;"> 0.0837456 </td>
+   <td style="text-align:center;"> 0.1368855 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 69 </td>
+   <td style="text-align:center;"> 4.1556426 </td>
+   <td style="text-align:center;"> 1.5769572 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 70 </td>
+   <td style="text-align:center;"> 8.5214980 </td>
+   <td style="text-align:center;"> 3.4950990 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 71 </td>
+   <td style="text-align:center;"> 0.3666008 </td>
+   <td style="text-align:center;"> 0.3850494 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 72 </td>
+   <td style="text-align:center;"> 0.7288253 </td>
+   <td style="text-align:center;"> 0.7447833 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 73 </td>
+   <td style="text-align:center;"> 9.7716442 </td>
+   <td style="text-align:center;"> 3.1309753 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 74 </td>
+   <td style="text-align:center;"> 3.2539969 </td>
+   <td style="text-align:center;"> 0.8357613 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 75 </td>
+   <td style="text-align:center;"> 6.1827710 </td>
+   <td style="text-align:center;"> 2.0307732 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 76 </td>
+   <td style="text-align:center;"> 0.5375392 </td>
+   <td style="text-align:center;"> 0.3924895 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 77 </td>
+   <td style="text-align:center;"> 16.3503986 </td>
+   <td style="text-align:center;"> 7.9458465 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 78 </td>
+   <td style="text-align:center;"> 2.4406695 </td>
+   <td style="text-align:center;"> 0.9126740 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 79 </td>
+   <td style="text-align:center;"> 7.8673204 </td>
+   <td style="text-align:center;"> 1.3113742 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 80 </td>
+   <td style="text-align:center;"> 24.6568330 </td>
+   <td style="text-align:center;"> 9.3978469 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 81 </td>
+   <td style="text-align:center;"> 5.9184221 </td>
+   <td style="text-align:center;"> 1.5154813 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 82 </td>
+   <td style="text-align:center;"> 0.1054130 </td>
+   <td style="text-align:center;"> 0.3320693 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 83 </td>
+   <td style="text-align:center;"> 9.8900222 </td>
+   <td style="text-align:center;"> 5.4695816 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 84 </td>
+   <td style="text-align:center;"> 31.2947471 </td>
+   <td style="text-align:center;"> 10.9350651 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 85 </td>
+   <td style="text-align:center;"> 2.4897635 </td>
+   <td style="text-align:center;"> 1.2456755 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 86 </td>
+   <td style="text-align:center;"> 4.0864764 </td>
+   <td style="text-align:center;"> 1.3019075 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 87 </td>
+   <td style="text-align:center;"> 1.4194298 </td>
+   <td style="text-align:center;"> 0.6853934 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 88 </td>
+   <td style="text-align:center;"> 11.9828969 </td>
+   <td style="text-align:center;"> 4.8501776 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 89 </td>
+   <td style="text-align:center;"> 1.4426425 </td>
+   <td style="text-align:center;"> 0.6576182 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 90 </td>
+   <td style="text-align:center;"> 5.2895623 </td>
+   <td style="text-align:center;"> 2.0431942 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 91 </td>
+   <td style="text-align:center;"> 5.4869264 </td>
+   <td style="text-align:center;"> 2.2998794 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 92 </td>
+   <td style="text-align:center;"> 11.1869805 </td>
+   <td style="text-align:center;"> 4.4937471 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 93 </td>
+   <td style="text-align:center;"> 7.1405733 </td>
+   <td style="text-align:center;"> 16.8684683 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 94 </td>
+   <td style="text-align:center;"> 8.2685861 </td>
+   <td style="text-align:center;"> 1.5775687 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 95 </td>
+   <td style="text-align:center;"> 4.1017582 </td>
+   <td style="text-align:center;"> 1.1831148 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 96 </td>
+   <td style="text-align:center;"> 5.3330576 </td>
+   <td style="text-align:center;"> 3.5013337 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 97 </td>
+   <td style="text-align:center;"> 0.2955416 </td>
+   <td style="text-align:center;"> 0.3409175 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 98 </td>
+   <td style="text-align:center;"> 4.3890536 </td>
+   <td style="text-align:center;"> 1.8384190 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 99 </td>
+   <td style="text-align:center;"> 6.5708118 </td>
+   <td style="text-align:center;"> 4.9236899 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 100 </td>
+   <td style="text-align:center;"> 4.0219026 </td>
+   <td style="text-align:center;"> 1.3888402 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 101 </td>
+   <td style="text-align:center;"> 1.9966806 </td>
+   <td style="text-align:center;"> 0.9147198 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 102 </td>
+   <td style="text-align:center;"> 9.8183302 </td>
+   <td style="text-align:center;"> 3.9793857 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 103 </td>
+   <td style="text-align:center;"> 8.6618850 </td>
+   <td style="text-align:center;"> 2.7069803 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 104 </td>
+   <td style="text-align:center;"> 0.3192114 </td>
+   <td style="text-align:center;"> 0.1910530 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 105 </td>
+   <td style="text-align:center;"> 2.5472055 </td>
+   <td style="text-align:center;"> 1.1006721 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 106 </td>
+   <td style="text-align:center;"> 3.3418487 </td>
+   <td style="text-align:center;"> 1.9789585 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 107 </td>
+   <td style="text-align:center;"> 6.4881739 </td>
+   <td style="text-align:center;"> 2.9311958 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 108 </td>
+   <td style="text-align:center;"> 0.4635790 </td>
+   <td style="text-align:center;"> 0.3692888 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 109 </td>
+   <td style="text-align:center;"> 1.6362268 </td>
+   <td style="text-align:center;"> 0.4785507 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 110 </td>
+   <td style="text-align:center;"> 2.1105178 </td>
+   <td style="text-align:center;"> 0.7844938 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 111 </td>
+   <td style="text-align:center;"> 6.4966978 </td>
+   <td style="text-align:center;"> 2.5118145 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 112 </td>
+   <td style="text-align:center;"> 10.5330281 </td>
+   <td style="text-align:center;"> 4.8371669 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 113 </td>
+   <td style="text-align:center;"> 0.3649766 </td>
+   <td style="text-align:center;"> 0.3642741 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 114 </td>
+   <td style="text-align:center;"> 6.9016545 </td>
+   <td style="text-align:center;"> 3.3854885 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 115 </td>
+   <td style="text-align:center;"> 5.3156884 </td>
+   <td style="text-align:center;"> 5.3799591 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 116 </td>
+   <td style="text-align:center;"> 5.4528659 </td>
+   <td style="text-align:center;"> 2.6357800 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 117 </td>
+   <td style="text-align:center;"> 0.2702839 </td>
+   <td style="text-align:center;"> 0.3181536 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 118 </td>
+   <td style="text-align:center;"> 0.6153711 </td>
+   <td style="text-align:center;"> 0.7381254 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 119 </td>
+   <td style="text-align:center;"> 0.9506839 </td>
+   <td style="text-align:center;"> 0.4873992 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 120 </td>
+   <td style="text-align:center;"> 9.4266222 </td>
+   <td style="text-align:center;"> 3.0275962 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 121 </td>
+   <td style="text-align:center;"> 2.6850461 </td>
+   <td style="text-align:center;"> 0.9175237 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 122 </td>
+   <td style="text-align:center;"> 3.7905889 </td>
+   <td style="text-align:center;"> 0.9428020 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 123 </td>
+   <td style="text-align:center;"> 6.6901391 </td>
+   <td style="text-align:center;"> 2.5961196 </td>
+  </tr>
+  <tr>
+   <td style="text-align:left;"> 124 </td>
+   <td style="text-align:center;"> 15.9822462 </td>
+   <td style="text-align:center;"> 5.8882458 </td>
+  </tr>
+</tbody>
+</table>
+
+      </div>
+  </div>
+
+    <script defer type = "text/javascript">
+// COMMON FUNCTIONS FOR SINGLE PANEL PLOTS:
+/* set svg with no width, height */
+var svg = document.getElementsByTagName('svg')[0];
+svg.removeAttribute('height');
+svg.removeAttribute('width');
+
+var data = chart.data;
+
+// make tables not go wide when there's only 1 column
+if (chart.type !== "bar") {
+  var ncol = $("#table thead tr th").length;
+  if (ncol < 3) {
+    $('#table').css('width', '50%');
+  } else if (ncol <= 4) {
+    $('#table').css('width', '75%');
+  } else {
+    $('#table').css('width', '100%');
+  }
+} else {
+  $('#table').css('width', '100%');
+}
+
+//table functions:
+// insert an x-header:
+insertXHeader = function() {
+  var xrow = table.insertRow(0),
+      xhead = xrow.insertCell(0);
+  xhead.setAttribute('class', 'headings');
+  xhead.innerHTML = document.getElementsByTagName('tspan')[2].innerHTML;
+  xhead.colSpan = ncol;
+};
+
+// creating a y-header:
+insertYHeader = function() {
+  var yHeading = document.getElementsByTagName('th')[0];
+  yHeading.innerHTML = document.getElementsByTagName('tspan')[3].innerHTML;
+  yHeading.setAttribute('class',' headings');
+}
+
+//create buttons:
+button = function(name) {
+  var button = document.createElement('button');
+  button.setAttribute("type", "button");
+  button.setAttribute("class","btn btn-primary hidden " + name);
+  button.innerHTML = "Show " + name;
+  button.setAttribute("onclick", "change" + name + "()");
+  button.setAttribute('id', 'Button' + name);
+  document.getElementById('control').appendChild(button);
+};
+
+// TODO: revise further
+getGrob = function(chartType) {
+  var polygon = document.getElementsByTagName('polygon');
+  if (chartType == 'hist'){
+    var p = polygon[2];
+  } else if (chartType == 'bar'){
+    var p = polygon[polygon.length-1];
+  } else {
+    var p = polygon[0]; //hexbin, bp-stacked.
+  }
+  var id = p.getAttribute('id');
+  var Grob = id.substring(0, id.lastIndexOf('.'));
+  return(Grob);
+}
+
+//FUNCTIONS FOR BOXPLOTS
+boxMe = function(levelNo) {
+
+  var polygonBoxes = document.querySelectorAll('g[id^="inz-box."]')
+  var boxLines = document.querySelectorAll('g[id^="inz-box-line."]')
+
+  for (i = 1; i <= levelNo; i++) { //separate boxes for each plot
+    var polygonBox = polygonBoxes[i-1].children;
+    var boxLine = boxLines[i-1].children;
+    for (j=0; j < 2; j++) {
+      polygonBox[j].setAttribute('class', 'box-' + i);
+      boxLine[j].setAttribute('class', 'box-' + i);
+    }
+    boxLabelSet(i, 0, 1, 0,'LQ');
+    boxLabelSet(i, 1, 2, 2, 'UQ');
+    boxLabelSet(i, 1, 0, 1, 'Median');
+    boxLabelSet(i, 1, 0, 3, 'Min');
+    boxLabelSet(i, 2, 1, 4, 'Max');
+  };
+
+  //Box Plot interactions:
+  for (j = 1; j <= levelNo; j++) {
+  var box = document.getElementsByClassName('box-' + j);
+  for (i = 0; i < box.length; i++) {
+    box[i].setAttribute('onmouseover', 'fillBox(' + j + ')');
+    box[i].setAttribute('onmouseout', 'normalBox(' + j + ')');
+    box[i].setAttribute('onclick', 'showBox(' + j + ')');
+    }
+  }
+
+  fillBox = function(j) {
+    d3.selectAll('.box-' + j)
+      .classed('fillBox', true);
+  };
+
+  normalBox = function(j) {
+    d3.selectAll('.box-' + j)
+      .classed('fillBox', false);
+    };
+
+  showBox = function(j) {
+    var boxData = d3.selectAll('.boxData-' + j);
+      boxData.classed('hidden', !boxData.classed('hidden'));
+  }
+}
+
+//functions to create boxLabels:
+boxLabel = function(i, textinput, panel, x, y) {
+var boxLabel = document.createElementNS("http://www.w3.org/2000/svg", "text");
+  boxLabel.setAttribute('class', 'label boxData-' + i + ' hidden'); //hidden
+  boxLabel.setAttributeNS(null, 'transform', 'translate(' + Number(x) + ',' + (Number(y) + 2) + ') scale(1, -1)');
+  boxLabel.setAttributeNS(null, 'id', textinput);
+
+  var textNode = document.createTextNode(textinput);
+  boxLabel.appendChild(textNode);
+  //var panel = document.getElementById('inz-' + tag + '.1.1.' + i + ".1");
+  panel.appendChild(boxLabel);
+};
+
+boxLabelSet = function(i, p, r, q, textinput) {
+  if (textinput == "Min" ||  textinput == "Max") {
+    var line = document.getElementById('inz-box-line.1.1.' + i  + '.1.' + p); //i is levelNo.
+    // p will either be 1 or 2 -> 1 = minLine, 2 = maxLine
+    line.setAttribute('class', 'box-' + i);
+    var boxPoints = line.getAttribute('points').split(" ")[r].split(",");
+    var panel = line.parentNode;
+  } else {
+    var box = document.getElementsByClassName('box-' + i)[p];
+    // boxplot split into two boxes - lowerbox (p = 0) and upperbox (p = 1)
+    var boxPoints = box.getAttribute('points').split(" ")[r].split(",");
+    var panel = box.parentNode;
+  }
+  x = boxPoints[0];
+  y = boxPoints[1];
+
+  if (textinput == "Median") {
+    // move median label below the box plot
+   y = boxPoints[1] - 11;
+  }
+  if (levelNo == 1) {
+    text = textinput + ": " + chart.boxData[q].quantiles;
+  } else {
+    text = textinput + ": " + chart.boxData[i-1][q].quantiles;
+  }
+  // this is associated with the boxData imported from R.
+  //q = 0 (LQ), 1 (UQ), 2 (Median), 3 (Min), 4 (Max)
+  boxLabel(i, text, panel, x, y);
+};
+
+//FUNCTIONS FOR INTERACTING WITH LEGEND
+// hover on a legend group:
+show = function(i) {
+  var keyText = document.getElementById('inz-leg-txt-' + i + '.1.1.tspan.1');
+  var key = document.getElementById('inz-leg-pt-' + i + '.1.1');
+  if (key.getAttribute("fill") !== "none") {
+        keyText.setAttribute('fill', key.getAttribute('fill'));
+    } else {
+        keyText.setAttribute('fill', key.getAttribute('stroke'));
+    }
+  keyText.setAttribute('class', 'show');
+  key.setAttribute('class', 'show');
+};
+
+//hover out:
+out = function(i) {
+  var keyText = document.getElementById('inz-leg-txt-' + i + '.1.1.tspan.1');
+  var key = document.getElementById('inz-leg-pt-' + i + '.1.1');
+  keyText.setAttribute('class', 'out keyText');
+  key.setAttribute('class', 'out');
+};
+
+//FUNCTIONS FOR HIGHLIGHTING tabs/cells:
+returnTabSelection = function(lp, data) {
+  data.classList.add('tabSelect');
+  data.style.backgroundColor = "rgba(" + lp + ",0.5)";
+}
+
+resetTabSelection = function(data) {
+  data.classList.remove('tabSelect');
+  data.style.backgroundColor = "white";
+}
+
+// Brush events:
+function brushend() {
+  if (!d3.event.selection) {
+    d3.select(".selection")
+      .style("display", "none");
+  }
+}
+
+function brushstart() {
+  d3.select(".selection")
+    .style("display", null);
+}
+    </script>
+
+    <script defer type = "text/javascript">
+// dot plots and scatter plots
+//initialize DataTable:
+var table = $('#table').DataTable({
+    "colReorder": true,
+    "columnDefs": [
+      { //hide rowID column
+        "targets": [0],
+        "visible": false
+      }
+    ]
+  });
+
+  if (chart.levNames) {
+    var levelNo = chart.levNames.length;
+  } else {
+    var levelNo = 1;
+  }
+
+// create form for variable selection:
+varForm = function() {
+  //create form
+  var form = document.createElement('form');
+  form.setAttribute('class', 'form-inline');
+  form.setAttribute('id', 'form');
+  document.getElementById('control').appendChild(form);
+
+  //create label for form
+  var formLabel = document.createElement('label');
+  formLabel.setAttribute('for', 'selectVar');
+  formLabel.innerHTML = "Variables to display";
+  form.appendChild(formLabel);
+
+  //create selection options:
+  var selectVar = document.createElement('select');
+  selectVar.setAttribute('class', 'form-control');
+  selectVar.setAttribute('id', 'selectVar');
+  selectVar.setAttribute('multiple', 'multiple');
+  form.appendChild(selectVar);
+
+  // get column names:
+  var ncol = $("#table thead tr th").length;
+  var th = document.getElementsByTagName('th');
+  for (var i = 0; i <= ncol; i++){
+      var opt = document.createElement('option');
+      if (i == 0) {
+        opt.value = 0;
+        opt.classList.add('select');
+        opt.innerHTML = "Display all";
+        opt.selected = "selected";
+      } else {
+      opt.value = i;
+      opt.innerHTML = th[i-1].innerHTML;
+    }
+    selectVar.appendChild(opt);
+  };
+
+}
+
+varForm();
+
+//drive the viewTable button:
+showTable = function() {
+  var tableWrapper = $('#table_wrapper');
+  tableWrapper.toggleClass('hidden');
+};
+
+//find out whether it's a dot or scatter:
+if (chart.type == "dot") {
+  var Grob = document.querySelectorAll('g[id^="inz-DOTPOINTS."]');
+  boxMe(levelNo);
+} else {
+  var Grob = document.querySelectorAll('g[id^="inz-SCATTERPOINTS."]');
+}
+
+// TOOLTIPS:
+var tooltip = d3.select('body').append('div')
+              .attr('class', 'tooltip')
+              .style('width', '100');
+
+//select all points
+d3.selectAll(Grob).selectAll('use')
+  .attr('class', 'point');
+
+d3.selectAll('.point')
+  .data(data)
+  .attr('class', 'point')
+  .on('mouseover', function (d, i) {
+      var g = ' ';
+      var names = chart.varNames;
+      var selectVar = document.getElementsByTagName('select')[0];
+      var sOpt = selectVar.selectedOptions;
+      var s = [];
+      for (j = 0; j < sOpt.length; j++) {
+          s.push(Number(sOpt[j].value));
+        }
+
+      for (var j = 0; j < s.length; j++) {
+        if (s[j] !== undefined) {
+          var w = names[s[j]-1] + ": <span>"
+          var t =  data[i][names[s[j]-1]] + "</span> <br>"
+       }
+
+       var g = w + t + g;
+       var p = s.length;
+
+       if (s.includes(0)) {
+         var g = ' ';
+         for (var k = 0; k < names.length; k++) {
+           var w = names[k] + ": <span>"
+           var t =  data[i][names[k]] + "</span> <br>"
+         var g = w + t + g;
+         var p = names.length;
+       }
+     }
+   }
+
+   return tooltip.style('visibility', 'visible')
+                 .style("left", d3.event.pageX - 50 + "px")
+                 .style("top", d3.event.pageY - 30 - 15*(p-1) + "px")
+                 .html(g);
+    })
+    .on('mouseout', function () { return tooltip.style("visibility", 'hidden'); })
+    .on('click', function (d, i) {
+      var selected = this;
+        var ind = [];
+
+        d3.selectAll('.point')
+            .attr("class", function() {
+              if (!d3.event.shiftKey) {
+                if (this === selected) {
+                  return ("point selected")
+                } else {
+                  return ("point none");
+                }
+              } else {
+                if (this.getAttribute('class') === "point selected") {
+                  return "point selected";
+                } else if (this === selected) {
+                    return "point selected";
+                } else {
+                  return "point none";
+                }
+            }
+          });
+
+        //filter table:
+        //search for all those that are selected, then extract id num:
+        var selected = document.getElementsByClassName('selected');
+        for (var j = 0; j < selected.length; j++) {
+            var id = selected[j].id;
+            if(levelNo > 1) {
+              // search for the middle number due to levels:
+              var mid = id.substring(0, id.lastIndexOf('.1.'));
+              var levNum = Number(mid.substring(mid.lastIndexOf('.') + 1));
+              var num = Number(id.substring(id.lastIndexOf('.') + 1));
+              // actual index in table:
+              var idNum = chart.countsTab[levNum - 1] + num;
+            } else {
+              var idNum = id.substring(id.lastIndexOf('.') + 1);
+            }
+            ind.push("^" + idNum + "$");
+        }
+
+        table.search('').columns().search('').draw();
+        table.columns(0).search(ind.join("|"), true).draw();
+
+    })
+    .on('dblclick', function (d, i) { // deselect
+      var selected = this;
+        var ind = [];
+       selected.setAttribute('class', 'point none');
+
+        // update table:
+        var selected = document.getElementsByClassName('selected');
+          for (var i = 0; i < selected.length; i++) {
+              var id = selected[i].id;
+              if(levelNo > 1) {
+                // search for the middle number due to levels:
+                var mid = id.substring(0, id.lastIndexOf('.1.'));
+                var levNum = Number(mid.substring(mid.lastIndexOf('.') + 1));
+                var num = Number(id.substring(id.lastIndexOf('.') + 1));
+                // actual index in table:
+                var idNum = chart.countsTab[levNum - 1] + num;
+              } else {
+                var idNum = id.substring(id.lastIndexOf('.') + 1);
+              }
+          }
+       table.search('').columns().search('').draw();
+       table.columns(0).search(ind.join("|"), true).draw();
+    });
+
+//link TABLE TO PLOT:
+$('#table tbody').on('click', 'tr', function() {
+    $(this).toggleClass('active');
+    var ind = table.rows('.active')[0];
+    d3.selectAll('.point')
+      .attr("class", function(d, i) {
+        return (ind.includes(i) ? "point selected" : "point none");
+      })
+    //clear brush
+    d3.selectAll('.selection')
+      .style("display", "none");
+    })
+
+//LEGEND INTERACTION:
+// only for single levels
+var legendLayout = document.getElementById('inz-leg-layout.1');
+if (legendLayout && levelNo == 1) {
+  //grabbing keys and text from the legend:
+  var colGroupNo = chart.colGroupNo;
+  //assigning mouse events:
+  for (i = 1; i <= colGroupNo; i++) { //colGroupNo -> colby levels from R (nlevels)
+      var keyText = document.getElementById('inz-leg-txt-' + i + '.1.1.tspan.1');
+      var key = document.getElementById('inz-leg-pt-' + i + '.1.1');
+
+      (function (i) {
+          key.addEventListener("mouseover", function () { show(i) }, false);
+          key.addEventListener("mouseout", function () { out(i) }, false);
+          key.addEventListener("click", function () { subset(i) }, false);
+
+          keyText.addEventListener("mouseover", function () { show(i) }, false);
+          keyText.addEventListener("mouseout", function () { out(i) }, false);
+          keyText.addEventListener("click", function () { subset(i) }, false);
+      })(i)
+    }
+
+    //on click, subsetting occurs:
+    subset = function (i) {
+      //get the title variable:
+      var titleVar = document.getElementById('inz-leg-title.1.1.tspan.1').innerHTML;
+      var key = document.getElementById('inz-leg-pt-' + i + '.1.1');
+      var keyText = document.getElementById('inz-leg-txt-' + i + '.1.1.tspan.1').innerHTML;
+      var names = chart.varNames;
+      var count = document.getElementsByClassName('point').length;
+
+      for (j = 1; j <= count; j++) {
+          var point = document.getElementById(Grob[0].id + '.' + j);
+          if (key.getAttribute('fill') == point.getAttribute('stroke')) {
+              point.setAttribute('class', 'point selected');
+          } else {
+              point.setAttribute('class', 'point none');
+          }
+      }
+
+      // find column index + filter: (add one for hidden column)
+      var colInd = names.indexOf(titleVar) + 1;
+      table.search('').columns().search('').draw();
+      table.columns(colInd).search("^" + keyText + "$", true).draw();
+    }
+};
+
+//LINES LEGEND: for trends only + single scatters
+// future work: possibly smoothers, LOE (but don't do it if no-one's going to use it.)
+var legLineLayout = document.getElementById('inz-leg-lines.1');
+var trendInfo = chart.trendInfo;
+
+getEquation = function(t) {
+    switch(t) {
+                case "linear":
+                return "Linear fit:" + "<span> y = " + trendInfo[t][0] + " " +
+                       (trendInfo[t][1] > 0 ? ("+" + trendInfo[t][1]) : trendInfo[t][1])
+                       + "x " + "</span> <br />" + "R" + "<sup>2</sup> : " + "<span>"
+                       + trendInfo[t][2] + "</span>";
+                break;
+
+                case "quadratic":
+                return "Quadratic fit:" + "<span> y = " + trendInfo[t][0] + " "
+                      + (trendInfo[t][1] > 0 ? ("+" + trendInfo[t][1]) : trendInfo[t][1])
+                      + "x " + (trendInfo[t][2] > 0 ? ("+" + trendInfo[t][2]) : trendInfo[t][2])
+                      + "x<sup>2</sup>" + "</span>" + "<br />"+ "R" + "<sup>2</sup> : " + "<span>"
+                      + trendInfo["rank.cor"][0] + "</span>";
+                break;
+
+                case "cubic":
+                return "Cubic fit: <span> y = " + trendInfo[t][0] + " " +
+                        (trendInfo[t][1] > 0 ? ("+" + trendInfo[t][1]) : trendInfo[t][1])
+                        + "x " + (trendInfo[t][2] > 0 ? ("+" + trendInfo[t][2]) : trendInfo[t][2])
+                        + "x<sup>2</sup> " + (trendInfo[t][3] > 0 ? ("+" + trendInfo[t][3]) : trendInfo[t][3])
+                        + "x<sup>3</sup> </span>" + "<br />" +  "R" + "<sup>2</sup> : <span>"
+                        + trendInfo["rank.cor"][0] + "</span>";
+                break;
+        }
+}
+
+addLineInteraction = function(t, g, ptip) {
+    d3.select(legLineLayout).selectAll("." + t)
+    .on('mouseover', function() {
+        show(t);
+    })
+    .on('mouseout', function() {
+        out(t);
+    })
+    .on('click', function() {
+        d3.selectAll('.trend')
+        .classed('hidden', function() {
+          return(this.getAttribute('class').includes(t) == true ? false : true);
+      });
+
+      return ptip.style("display", null)
+                 .html(g);
+        });
+
+    d3.selectAll(".trend." + t)
+      .on("mouseover", function() {
+          d3.select(".tooltip")
+            .style("left", d3.event.pageX - 50 + "px")
+            .style("top", d3.event.pageY - 50 + "px")
+            .style("visibility", "visible")
+            .html(g);
+          })
+      .on("mouseout", function() {
+          d3.select(".tooltip")
+            .style("visibility", "hidden");
+          })
+}
+
+setUpLegend = function(legLineLayout, trendInfo) {
+    if (legLineLayout) {
+    var lines = d3.select(legLineLayout).selectAll('polyline')
+                  .attr('class', function() {
+                    var id = this.id;
+                    var type = id.substring(id.lastIndexOf("-") + 1, id.indexOf("."));
+                    return type;
+                  });
+    var keys = d3.select(legLineLayout).selectAll('tspan')
+                 .attr('class', function() { return this.innerHTML; });
+
+   //insert text into the control panel:
+   var ptip = d3.select('#control')
+             .append("p")
+             .attr('class', 'trend-info')
+             .style('display', 'none');
+
+  var ll = legLineLayout.querySelectorAll('tspan');
+
+  //loop over lines
+  for (var i = 0; i < ll.length; i++) {
+      var t = ll[i].innerHTML;
+      var line = document.getElementById('inz-trend-' + t + '.1.1.1.1');
+      line.setAttribute('class', t + ' trend');
+
+      var g = getEquation(t);
+      addLineInteraction(t, g, ptip);
+    }
+  }
+}
+
+setUpLegend(legLineLayout, trendInfo);
+
+// BRUSH EFFECTS:
+var brush = d3.brush()
+              .on("start", brushstart)
+              .on("brush", brushmove)
+              .on("end", brushend);
+
+// find where inz-x-grid is:
+var pp = document.getElementById('inz-x-grid.1.1.1').parentNode;
+d3.select(pp)
+  .insert("g", "g:nth-child(4)")
+  .attr("class", "brush")
+  .call(brush);
+
+// make handles invisible:
+d3.selectAll('.handle')
+  .style('opacity', 0);
+d3.select('.overlay')
+  .attr('width', '100%')
+  .attr('height', '100%');
+d3.select('.overlay')
+  .style('stroke', 'none');
+
+function brushmove() {
+  var s = d3.event.selection;
+  var x1 = s[0][0];
+  var x2 = s[1][0];
+  var y1 = s[0][1];
+  var y2 = s[1][1];
+  var ind = [];
+
+  d3.selectAll('.point')
+        .attr('class', function(d, i) {
+          var selected = this;
+          var x = this.x.baseVal.value;
+          var y = this.y.baseVal.value;
+          if ((x1 <= x && x <= x2) && (y1 <= y && y <= y2)) {
+            return('point selected');
+          } else {
+            return('point none');
+          }
+        });
+
+  // find all selected points and return indices:
+  var selected = document.getElementsByClassName('selected');
+    for (var i = 0; i < selected.length; i++) {
+      //calculate idNum:
+      var id = selected[i].id;
+      if (levelNo > 1) {
+      // search for the middle number due to levels:
+        var mid = id.substring(0, id.lastIndexOf('.1.'));
+        var levNum = Number(mid.substring(mid.lastIndexOf('.') + 1));
+        var num = Number(id.substring(id.lastIndexOf('.') + 1));
+        // actual index in table:
+        var idNum = chart.countsTab[levNum - 1] + num;
+      } else {
+        var idNum = id.substring(id.lastIndexOf('.') + 1);
+      }
+        ind.push("^" + idNum + "$");
+    }
+    //filter table:
+    table.columns('').search().columns('').draw();
+    table.columns(0).search(ind.join("|"), true).draw();
+};
+
+//Reset Button:
+reset = function() {
+    d3.selectAll('.point')
+      .classed("none selected", false);
+
+    // restore table to original state
+    table.search('').columns().search('').draw();
+    table.rows().nodes().to$().removeClass('active');
+
+    d3.selectAll('.label')
+    .classed("hidden", true);
+
+    d3.selectAll('.selection')
+      .style("display", "none");
+
+    d3.selectAll('.trend')
+      .classed("hidden", false);
+
+    d3.select('.trend-info')
+      .classed("hidden", true);
+
+};
+
+// deselection/reset using plotregion double-click:
+var plotRegion = document.getElementsByClassName('overlay')[0];
+plotRegion.addEventListener("dblclick", reset, false);
+    </script>
+
+  </body>
+
+</html>

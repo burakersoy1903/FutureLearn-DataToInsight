@@ -210,7 +210,7 @@ FALSE: The variability in ALE has reduced over time for all regions.
 For example, the spread of the data for Sub-Saharan Africa has increased since the 1950s
 --- 2.17 Questioning strategy in Quizzes and Tests ----------
 Most of you are time-poor so we want make sure that every element of the course, including each quiz and test, is aimed at increasing learning.
---- 2.18 Boot Camp assessment ----------
+--- 2.18 Assessment - Boot Camp ----------
 I have no plans to upgrade
 Just skip
 --- 2.19 Weekly Reflections ----------
@@ -227,6 +227,7 @@ numeric variables: Measures
 Why do people care about relationships between variables? Most of you will have heard of risk factors for diseases. The basic idea of risk factors is that certain variables can help tell us how much more or less likely it is that a person will get a disease.
 We investigate relationships between variables to figure out what is going on and to help us describe what is happening in the real world. Also, to predict what will happen in the future, and to explain how things work, and to control or change real world outcomes.
 We will start thinking in terms of a variable of primary interest whose behaviour we want to predict or explain (like getting cancer). We will call this our outcome variable. 
+In answer to your question, outcome and response variable are both common names for the same thing -- Chris Wild
 There are other variables that we think might be predictive of outcome variable behaviour. We will call these predictor variables.
 This week I'll introduce you to the main concepts and tools for working with relationships. You will start using the American NHANES health data to look at social issues such as risky behaviour, socioeconomic status, and the effects of age and gender on testosterone. We'll also look at global issues like CO2 emissions and energy use using the Gapminder data.
 --- 3.2 Relationships between categorical variables ----------
@@ -269,22 +270,108 @@ Question 2: When we do a scatterplot of two numeric variables, 1) the outcome va
 FALSE: ...variables, if there is a relationship between the predictor and outcome variables, the trend in the scatterplot will always be a straight line. (Trends may be curved lines.)
 Question 3: For each value of number of children per woman it is the orange trend line that goes approximately through the centre of the data.
 Question 4: United Arab Emirates is not an outlier as it is within the general envelope of points scattered around the trend line.
---- 3.11 Relationships assessment ----------
+--- 3.11 Assessment - Relationships ----------
 I have no plans to upgrade
 Just skip
 --- 3.12 Weekly Reflections ----------
 Sometimes it is better not to know too much about the data - that way you tend to let the data speak rather than impose preconceived ideas on the data.
 
 
-Week 04 -- MMDD2018 ------------------------------------------------------------
+Week 04 -- 04132018 ------------------------------------------------------------
 DEEPER INTO RELATIONSHIPS ------------------------------------------------------
 --- 4.1 More relationships ----------
+Hi all - This week we look deeper into relationships with scatterplots and some difficulties that can make it hard to easily see what is really happening. A few sneaky techniques can help us get the correct impression of the underlying relationship - Mike
+Relationships between numeric & categorical variables
+Relationships between categorical & categorical variables
+Relationships between numeric & numeric variables
+https://xkcd.com/833/
+--- 4.2 Lines, curves and smoothers ----------
+But so far, all our curves have been freehand curves, drawn by eye to make us really engage with seeing trends. This is important as the untrained eye can be misled.
+Linear is used to capture a trend that looks like a straight line.
+Quadratic curves could be used to capture trend-curve shapes that look like any segment of one of the two curves on the left.
+Cubic curves are more flexible because they can take up to two bends. 
+Smoothers are even more flexible and take on an even greater variety of shapes. You can control how flexible a smoother is using a slider.
+The right-hand plot is what you get when you click the "Inference Information" button in iNZight. A set of curves like this is often described as a nest of curves.
+Here's a small data set. Which of all these possible lines best captures the trend? First, we'll have to decide what we mean by best. Let's draw a candidate line. For every data point, there's a corresponding point on the line. This is the prediction this line would make for that data point. The predicted point and the real observation seldom coincide, leading to a set of prediction errors. These prediction errors are the vertical arrows on the plot. We want to choose the line that makes the smallest prediction errors in some overall average sense. 
+Most software uses the least squares method, which minimises the sum of the squares of the prediction errors.
+--- 4.3 Week 4 glossary ----------
+Check "Articles/1.13-data-to-inzight-glossary.pdf"
+Association, Colour gradient, Correlation, Cubic curves, Intercept, Jittering, Linear trend, Overprinting, Quadratic curves, Running quantiles, Slope, Smoother, Subsetting, Tile density plot, Transparency
+--- 4.4 Interpreting the slope of a trend line ----------
+Check "Articles/4.04-Interpreting the Slope of a Trend Line.pdf"
+height = 85.68 + 5.76 ∗ age
+y = m ∗ x + c
+In our example, y is height, x is age and Get Summary gives you the values of m and c that produce the trend line on the graph.
+The slope of the line is 5.76. What does this number mean?
+The slope of a line is the change in y produced by a 1-unit increase in x.
+For our example, the trend line would predict that if someone was 1-year older (x increases by 1), then they would be about 5.76cm taller (y increases by 5.76).
+https://www.mathsisfun.com/
+https://www.mathsisfun.com/data/straight_line_graph.html
+https://www.mathsisfun.com/equation_of_line.html
+https://www.mathsisfun.com/algebra/quadratic-equation-graph.html
+--- 4.5 Association and correlation ----------
+Statisticians say two variables are associated if there is a relationship between them that is too strong to be likely to arise simply by chance. Otherwise there is no association.
+The association can be strong (very little scatter compared to the movement in the trend) or weak (lots of scatter around the trend).
+An association is called positive if y tends to get bigger when x gets bigger and negative if y tends to get smaller as x gets bigger.
+Correlation measures a specific form of association. It is a measure of how close the points are to lying on a straight line.
+Correlations take values between -1 and +1. A correlation of +1 occurs when all of the points lie exactly on a line that has a positive slope. A correlation of -1 occurs when all of the points lie exactly on a line that has a negative slope. The correlation is zero if there is no relationship. 
+As the relationship gets stronger, the correlation gets closer to either -1 or +1. As the relationship gets weaker, the correlation gets closer to zero.
+When there is a strong relationship in a scatterplot, people tend to jump to a premature and often false conclusion that changes in the predictor are actually causing changes in the outcome. (Awesome examples: http://www.tylervigen.com/spurious-correlations)
+Check "Articles/4.05-stats_causation_vs_correlation.pdf"
+In theory, these are easy to distinguish — an action or occurrence can cause another (such as smoking causes lung cancer), or it can correlate with another (such as smoking is correlated with alcoholism). If one action causes another, then they are most certainly correlated. But just because two things occur together does not mean that one caused the other, even if it seems to make sense.
+There are several reasons why common sense conclusions about cause and effect might be wrong.
+This is why epidemiological (or observational) studies are so important. These are studies in which large groups of people are followed over time, and their behavior and outcome is also observed.
+Without clear reasons to accept causality, we should only accept correlation. Two events occurring in close proximity does not imply that one caused the other, even if it seems to makes perfect sense.
+http://www.istics.net/Correlations/
+http://guessthecorrelation.com/
+--- 4.6 Overcoming perceptual problems ----------
+Overprinting vs. Jittering
+Overprinting vs. Transparency
+Jittering vs. Transparency
+Check "Book/4.06-Overcoming-perceptual-problems-illustrated.pdf"
+So we really do need aids like this to see properly into scatter plots for large data sets.
+This helps us to see gaps between data points, usually caused by a rounding. The blood pressures here are all rounded to whole numbers. Using very small plotting symbols is good for seeing discreteness or separateness.
+To summarise, using no transparency emphasises what's happening on the edges of the data, while high transparency lets us look at the comparative density of the observations in the bulk of the data.
+--- 4.7 Exercise - Techniques for scatterplots ----------
+Check "Exercises/4.07-exercise-techniques-for-scatterplots_R_17.pdf"
+We can use transparency, running quartiles, and jittering to get a clearer picture of the density of the data.
+--- 4.8 Quiz -Enhancing scatterplots ----------
+Question 1: Comments for a weakly scattered graph
+1) Make the points semi-transparent.
+There are only a few small areas of the plot that have a lot of values overprinted. It is not a huge problem with this plot.
+2) Colour the points by Age.
+Colouring the points by Age would not give us any new information as Age is already a predictor variable.
+3) Add a straight trend line.
+The data appear curved so would be better to fit a trend line with a curve in it.
+4) Decrease the size of the symbols.
+Decreasing the size of the symbols may help to see separateness but is not the most useful technique for this plot.
+5) Add a smoother and running quartiles. (Correct)
+A smoother is designed to be flexible and fit the data in a variety of shapes. It will summarise the trend curve and other quantiles will add information about what is happening in the scatter.
+Question 2: Jittering is a useful technique for seeing if there are a lot of values sitting directly on top of one another. We already know this with the use of transparency.
+--- 4.9 Diving deeper with more variables ----------
+More variables vs. Colour
+More variables vs. Subsetting
+In reality, we use colour to investigate the effect of a new variable.
+We'll now move on to subsetting. We can see this with the set of plots or by playing through the plots like a movie.
+For data exploration, it's not a matter of which is best. We often use both in the hopes of triggering insights.
+--- 4.10 Our changing health and wealth ----------
+Visualization tools: Jittering, Transparency, Size, Running quantiles, Colour, Subsetting
+--- 4.11 Exercise - Advanced scatterplots for deeper analysis ----------
+Check "Exercises/4.07-exercise-techniques-for-scatterplots_R_17.pdf"
+--- 4.12 Diving deeper into relationships ----------
+Question 1: There is a positive relationship between ChildrenPerWoman and InfantMortality. As ChildrenPerWoman increases, so does the rate of InfantMortality.
+In recent years, the relationship between InfantMortality and ChildrenPerWoman has become stronger. Over time we are seeing less scatter around the trend.
+Question 2: Sizing the symbols according to population total emphasises the countries with larger populations. The bigger shapes stand out.
+--- 4.13 Assessment - Deeper into relationships ----------
+I have no plans to upgrade
+Just skip
+--- 4.14 Weekly Reflections ----------
+3-D plotting/ :D
 
 
-
-
-
-
+Week 05 -- MMDD2018 ------------------------------------------------------------
+WHY WHAT I SEE IS NEVER THE WAY IT REALLY IS -----------------------------------
+--- 5.1 Why what I see is not quite the way it really is ----------
 
 
 

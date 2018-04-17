@@ -369,12 +369,47 @@ Just skip
 3-D plotting/ :D
 
 
-Week 05 -- MMDD2018 ------------------------------------------------------------
+Week 05 -- 04172018 ------------------------------------------------------------
 WHY WHAT I SEE IS NEVER THE WAY IT REALLY IS -----------------------------------
 --- 5.1 Why what I see is not quite the way it really is ----------
+So far, we have simply been concentrating on exploring our data. We didn't pause to worry about the reliability or representativeness of the data we were analysing. Our priority was to give you an appreciation of the potential of data analysis.
+There are statistical ways of assessing and allowing for uncertainties, the fuzziness.
+We still want to see this, but what we end up looking at is more like this, a total distortion of reality. And we may never know that this has happened. The first law of data analysis is garbage in, garbage out. No amount of sophisticated data analysis can turn bad data into reliable conclusions.
+We'll start the week by talking about how data gets to be bad. Then we will go on to problems and determining whether changes in a predictive factor actually cause a change in outcome. And we'll finish the week talking about random error, with a particular focus on sampling errors.
+http://bigdata-madesimple.com/dilberts-20-funniest-cartoons-on-big-data/
+https://place.fi.ncsu.edu/local/catalog/course.php?id=4&ref=1
+--- 5.2 Bad data ----------
+Armspan vs Height
+The point is that there are a lot of strongly visible patterns in this plot that have nothing to do with the real world of human body shapes. They are artefacts, artificial patterns caused by deficiencies in the data collection process.
+We know that there are a lot of things wrong with this data because we know a lot about arm spans, heights, and children. But if we were investigating something we knew almost nothing about, we'd probably have no idea that we were looking at artefacts, rather than facts, aspects of the real relationship.
+Artefacts are artificial patterns caused by deficiencies in the data collection process. No data collection processes are ever perfect, so in data analysis we're always struggling to distinguish between facts and artefacts.
+Bad measurement processes, measurements that do not actually measure what they are meant to, and bias, the process by which some things get recorded while others don't, can cause systematic biases.
+Real data is also full of holes, values that are missing for various reasons. If the people we have values for tend to be different from those whose values have gone missing, then we automatically have bias.
+The best protection against bad data is to design good data collection processes at the outset. That is before the data is collected.
+https://www.statschat.org.nz/
+--- 5.3 Week 5 glossary ----------
+Check "Articles/1.13-data-to-inzight-glossary.pdf"
+Artefacts, Biased selection processes, Causal conclusion, Cause, Causation, Confounder (Lurking variable, Confounding variable.), Measurement Error, Observational Study, Random Error, Random sampling, Randomised Experiment, Reliability, Representative, Sample size, Sampling error(s), Sampling variation, Selection processes, Systematic biases, Validity
+--- 5.4 Measurement, validity and reliability ----------
+You will often hear the names of two generic big ideas in measurement, however, “validity” and “reliability”. A measure is valid if it is “measuring the right thing”. It is reliable if, when you measure the same thing over and over again, you get pretty much the same answer.
+Check "Articles/5.04-Measurement, validity and reliability.pdf"
+Check "Articles/5.04-Chris Wild Paper.pdf"
+https://www.dur.ac.uk/smart.centre/ by Professor Jim Ridgway
+It is a brave (or foolhardy) person who believes that measures of any social phenomenon are stable over time.
+http://www.pewforum.org/2015/04/02/religious-projections-2010-2050/
+--- 5.4 Selection biases ----------
+The selection-biases people tend to be most familiar with are the biases in polls and surveys from causes other than sampling (statisticians call them “non-sampling errors”) and those are what we will discuss here.
+The biases that arise this way are referred to as self-selection bias. The people who do contribute are often very different from this who don’t and so are not representative of the general population.
+“Scientific” polls and surveys with low response rates are likely to give biased results for the same basic reasons (there it’s called non-response bias).
+Or in the words or images used in ancient maps, an alert that “here be dragons.”
+https://www.youtube.com/watch?v=G0ZZJXw4MTA
+In cases where it is a practical possibility, survey samplers would sample from a list of everybody in the population of interest (the target population).
+The approximation has often been something like an electoral roll (lists of everyone eligible and registered to vote). Or they will sample by sampling from the available (landline) telephone numbers coupled with some strategy to choose a person in the house that had that number. This used to work really well but now the fraction of houses without landlines has become substantial. So the mismatch between the sampling frame and the population of interest – the population we want to project our findings to – is the source of frame errors.
+Statistics only justifies an extrapolation of findings from the sample taken to the population that was actually sampled from.
 
 
-
+Week 05 -- MMDD2018 ------------------------------------------------------------
+--- 5.6 Data cleaning ----------
 
 
 

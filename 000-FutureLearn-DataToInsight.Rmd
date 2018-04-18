@@ -335,7 +335,7 @@ To summarise, using no transparency emphasises what's happening on the edges of 
 --- 4.7 Exercise - Techniques for scatterplots ----------
 Check "Exercises/4.07-exercise-techniques-for-scatterplots_R_17.pdf"
 We can use transparency, running quartiles, and jittering to get a clearer picture of the density of the data.
---- 4.8 Quiz -Enhancing scatterplots ----------
+--- 4.8 Quiz - Enhancing scatterplots ----------
 Question 1: Comments for a weakly scattered graph
 1) Make the points semi-transparent.
 There are only a few small areas of the plot that have a lot of values overprinted. It is not a huge problem with this plot.
@@ -408,8 +408,56 @@ The approximation has often been something like an electoral roll (lists of ever
 Statistics only justifies an extrapolation of findings from the sample taken to the population that was actually sampled from.
 
 
-Week 05 -- MMDD2018 ------------------------------------------------------------
+Week 05 -- 04182018 ------------------------------------------------------------
 --- 5.6 Data cleaning ----------
+In large research projects, much more time may be spent on “cleaning” the data before analysis begins than on analysis itself.
+Data collection processes seldom run entirely smoothly.
+For example, if for Gender, we are using “Female” and “Male”, close variants such as “female”, “fem”, “F” and “f” would have to be converted to “Female”. Otherwise analysis programs treat them as entirely different categories.
+--- 5.7 Quiz - Bad data ----------
+Question 1:
+Random selection helps avoid biased selection processes.
+Receiving benefits encourages people to participate in the observation study. If the participation rate is not high, the results may not be representative as selected people who go to the trouble of participating are likely to be different in important ways from selected people who do not, thus undoing the good work that random selection has done.
+Accepting volunteers is likely to cause bias in the data collection because volunteers are likely to be different in important ways from from people who don’t volunteer. In fact NHANES do not accept volunteers, only people who have been randomly selected.
+Selecting the householder and using an interviewer to screen the participant helps to get a representative sample of the US population.
+Medical Professionals will ensure that measurements are taken correctly and consistently giving much better data than if less highly-trained people had done this.
+Participants will be more willing to answer questions and participate if they know that their personal information is secure. If they didn’t do this the participation rates would be lower and the results would be skewed towards people who don’t worry much about personal information and these may well be different in important ways from people who do care about the security of their personal information.
+Question 2:
+An artefact is an artificial pattern caused by deficiencies in the data collection process.
+A variable that affects both the predictor and outcome variable is called a confounding variable or a lurking variable.
+The best way to avoid artefacts is to design good data collection processes before the data is collected.
+--- 5.8 Causation and Confounding, Part I ----------
+There is always the chance that the real culprit is that the groups we are looking at are unbalanced with respect to some other important factor.
+A variable is said to be a cause of changes in the outcome if actually changing its value leads to a change in the pattern of the outcomes.
+A variable like age in our example is called a confounder, or lurking variable. Strictly, a confounder is something that causes changes in both the outcome and the predictor of interest. When we look at smoking in a naive way, as in the graph, its effects are all mixed up (confounded) with the effects of the confounder variable Age.
+While an association between variables and observational data is not proof of anything, it is a clue that can be very helpful in ongoing detective work.
+--- 5.9 Causation and Confounding, Part II ----------
+In the context of categorical data, the problem we are looking at is called Simpson's paradox.
+Statisticians have developed sophisticated ways of trying to accomplish the same thing for smaller data sets. Tools include matched sampling and regression modelling, but they all involve making some fairly strong assumptions.
+--- 5.10 Quiz - Causes and lurking variables ----------
+Question 1:
+It is an observational study because the data has been observed and recorded in existing conditions in the world without intervention.
+The difference in the number of people in the groups is not the problem. The important imbalance between the groups is that they do not contain people of comparable ages.
+Question 2:
+Observation studies can point to a possible cause of an effect but cannot reliably establish that something is a cause.
+In an experiment, the experimenter enforces which experimental units receive the treatment. In an observational study, we simply compare units that happen to have received each of the treatments.
+
+
+Week 05 -- MMDD2018 ------------------------------------------------------------
+--- 5.11 Random error, Part I ----------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

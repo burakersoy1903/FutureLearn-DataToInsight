@@ -442,8 +442,37 @@ Observation studies can point to a possible cause of an effect but cannot reliab
 In an experiment, the experimenter enforces which experimental units receive the treatment. In an observational study, we simply compare units that happen to have received each of the treatments.
 
 
-Week 05 -- MMDD2018 ------------------------------------------------------------
+Week 05 -- 04202018 ------------------------------------------------------------
 --- 5.11 Random error, Part I ----------
+We looked at ways data can conspire to mislead us. We looked at problems caused by bad measurement systems and biased selection mechanisms. These are data quality issues. They result in the data we're looking at giving a distorted picture of the reality we're trying to understand.
+Random error is a small data problem, by which I mean it's a problem in data sets that are not huge. 
+With random sampling errors the bigger the sample we take, the smaller the errors we make. So where possible, we can reduce error by increasing the size of our sample.
+The random error in a sample from a population depends on the sample size. The larger the sample size, the smaller the random error. Having a fixed percentage of the population would not help (as small populations would have smaller samples) and would also make some situations impossible to get samples from (e.g. a sample of people living in China)
+--- 5.12 Random error, Part II ----------
+Remember, in reality, we don't know the true value of the target. We only ever take one sample. And we can never know how big the sampling error is.
+We can see that increasing the sample size reduces how big the sampling error can be. It suggests the following metaphor from photography. When random sampling error is the only source of error, increasing the sample size is like sharpening the focus.
+I don't want to leave you thinking random sampling's terrible. Look at all the errors we get. Random sampling is still the best way we know of getting data that's not plagued by biases. Everything else tends to be much worse. And with random sampling, we can get a pretty good idea of how reliable our estimates are, whereas non-random selections tend to lead to unknown biases of unknown size.
+Some take-home lessons-- all estimates are wrong. Bad estimates lead to bad decisions. An estimate is not particularly useful if we have no idea how wrong it could be. Sampling errors get smaller when we take bigger samples, whereas systematic biases don't.
+--- 5.13 Exercise - Sampling variation - numeric data ----------
+Check "Exercises/5.13-Explore-sampling-variation-numeric_vitonline16.pdf"
+The median and lower quartile results seem to be 'quantised' with discrete values showing as shoulders. I wonder if it uses integer values for these instead of floating point which is used for average.
+The data values are discrete (rounded to whole numbers) so the median must be either a whole number (n odd) or fall half way between 2 whole numbers (n even)
+--- 5.14 Exercise - Sampling variation - proportions ----------
+Check "Exercises/5.14 -Explore-sampling-variation-proportions_vitonline16.pdf"
+Very nice visual presentation of population statistics (mean, median, proportions); statistics of random samples, their sampling distributions; effect of sample size and number of samples.
+--- 5.15 Assessment - Why what I see is never the way it really is ----------
+I have no plans to upgrade
+Just skip
+--- 5.16 Weekly Reflections ----------
+It was to show how much variation and estimation error you get when you take samples from a population.
+
+
+Week 06 -- MMDD2018 ------------------------------------------------------------
+ESTIMATION WITH CONFIDENCE -----------------------------------------------------
+--- 6.1 Introduction to estimation with confidence ----------
+
+
+
 
 
 

@@ -26,14 +26,12 @@ The Problem step is about trying to turn these vague feelings into much more pre
 The formation of conclusions typically involves the analyst and a subject-matter expert (e.g. someone who understands the business) who will “own” the conclusions.
 This article has been about purpose-collected data.
 Check "Articles/1.6-Statistical Thinking in Empirical Enquiry.pdf" --Original PPDAC model article
-Check "Articles/1.6-Place of data analysis in problem solving.pdf"
 --- 1.7 Datasets for Data to Insight ----------
 “Garbage in, Garbage out” is a standard catch-phrase in information-technology and it certainly applies to statistical data analysis today.
 The main datasets for this course are NHANES and Gapminder.
 NHANES: National Health and Nutrition Examination Survey (https://www.cdc.gov/nchs/nhanes/index.htm)
 Gapminder: (https://www.gapminder.org/) (https://www.gapminder.org/data/)
 Check "Articles/1.7-gapminder-dataset-overview.pdf"
-Check "Articles/1.7-NHANES 2009_2012.pdf"
 Datasets in csv format (https://www.stat.auckland.ac.nz/~wild/data/FutureLearn/)
 Datasets in tab-delimited text format (https://www.stat.auckland.ac.nz/~wild/data/FutureLearn_TabTxt/)
 Also available in Datasets folder
@@ -148,7 +146,7 @@ When the data is nearly symmetric, the mean and the median are almost the same.
 This sort of shape is said to be skewed. With skewed data, there's no sharp notion of centre.
 So which measure of centre should we use? That depends on what we want to use it for. For incomes, and many highly-skewed variables, the median tends to be preferable because it better represents the common experience, or what is typical. Half of the people get less. Half get more.
 --- 2.8 Features of numeric variables ----------
-Check "Articles/2.7-Features of Numeric Variables.pdf"
+Check "Articles/2.8-Features of Numeric Variables.pdf"
 Centre: Median and Mean
 Spread: Interquartile Range (IQR) and Standard deviation
 Shape: Modality (unimodal, bimodal, trimodal) and Symmetry and skewness(symmetric, positively and negatively skewed)
@@ -328,7 +326,6 @@ http://guessthecorrelation.com/
 Overprinting vs. Jittering
 Overprinting vs. Transparency
 Jittering vs. Transparency
-Check "Book/4.06-Overcoming-perceptual-problems-illustrated.pdf"
 So we really do need aids like this to see properly into scatter plots for large data sets.
 This helps us to see gaps between data points, usually caused by a rounding. The blood pressures here are all rounded to whole numbers. Using very small plotting symbols is good for seeing discreteness or separateness.
 To summarise, using no transparency emphasises what's happening on the edges of the data, while high transparency lets us look at the comparative density of the observations in the bulk of the data.
@@ -532,6 +529,7 @@ Then we choose randomly who will be in each treatment group. Apply the treatment
 This random assignment tends to balance the groups on everything except the treatment they're receiving, so that when we compare treatment groups, we are comparing like with like so that we are conducting a fair test.
 A better design would be first to divide subjects up into age groups. Statisticians would call this "blocking on age." Second, they'd randomise "smoke" or "don't smoke" within an age group (or block) and then make the comparisons between smokers and non-smokers within the same block (groups of children of similar age).
 --- 7.2 Fair tests ----------
+Check "Articles/7.02-Fair Testing.pdf"
 We haven’t talked about the special case of comparing one or more treatments to not being treated at all (“no treatment”) using a control group. Statistically, “no treatment” is just another treatment condition. 
 You may have heard of the placebo effect (there can be surprisingly large changes in an outcome variable just from people knowing they are being treated for something). Control conditions need to allow for the placebo effect.
 --- 7.3 Randomisation variation ----------
@@ -560,6 +558,7 @@ We see that only 4 of the 24 people on the Placebo treatment were cocaine-free. 
 --- 7.10 Exercise - Using VIT to run a randomisation test for proportions ----------
 Check "Exercises/7.10-using-vit-to-run-a-randomisation-test-for-proportions.pdf"
 --- 7.11 Statistical tests ----------
+Check "Articles/7.11-Statistical Tests.pdf"
 The randomisation tests you have seen and been using are a special case of what is known as statistical significance tests, or statistical hypothesis tests. (The situations we have worked with correspond to testing the hypothesis that “there are no true differences between the effects of the treatments”.)
 The tail proportions we have been working with correspond to the p-values of significance testing theory (there is a complication about “sided-ness” that we will deal with at the end of this article).
 In experimental situations a large p-value (large tail proportion) means that the luck of the randomisation quite often produces group differences as large or even larger than what we’ve got in our data. In this case the data provides no evidence that there are true treatment-group differences.
@@ -571,35 +570,56 @@ https://xkcd.com/882/
 --- 7.12 Out of the Fog and into Power ----------
 The power of a study is the probability that it would detect an effect exists when the true effect was of a nominated size.
 It's like this: a helicopter pilot might say, "If a building's 100 metres high or higher, I want to know that there's a building there. If it's shorter than that, I'm OK with not knowing." So as part of designing a study, we have to specify a minimum effect size at which we'd want to know that a true effect exists. We then ensure that the study uses enough experimental subjects so that if the true state of the world was our specified effect size or larger, we would almost certainly conclude that a treatment difference existed.
---- 7.13 Assessment - Estimation with confidence ----------
+--- 7.13 Assessment - Randomised experiments ----------
 I have no plans to upgrade
 Just skip
 --- 7.14 Weekly Reflections ----------
 
 
-Week 08 -- MMDD2018 ------------------------------------------------------------
+Week 08 -- 05092018 ------------------------------------------------------------
 TIME SERIES --------------------------------------------------------------------
 --- 8.1 Introducing Time Series Data ----------
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+We'll look at data collected over time where we're interested in looking at changes over time. Statisticians call it "Time-series data". This is a standalone module that can be studied at any time after Week Four. People are often fascinated by time series data because it can help them understand the past but, even more, to help them predict the future.
+There's a basic pattern that repeats every year. We call such patterns, seasonal patterns.
+Why do people worry about identifying and estimating patterns, like the ones we've been seeing? Mainly because they want to take them and project them into the future. They want to use them for forecasting what's going to happen next so that they can plan for this anticipated future, how to adapt to it or take advantage of it.
+https://www.bloomberg.com/graphics/2015-whats-warming-the-world/
+https://public.tableau.com/en-us/s/gallery/evolution-global-temperature?utm_source=feedburner&utm_medium=email&utm_campaign=Feed%3A+VizOfTheDay+%28Viz+of+the+Day+-+Beautiful+Visual+Stories%29
+https://xkcd.com/1732/
+--- 8.2 Time series data ----------
+Check "Articles/8.02-Time Series data.pdf"
+If there are holes it will report an error (or may possibly produce silly results).
+If you have some holes in your series you could fill them in with guesses at the sort of values that might have been likely if a reading was able to be taken, and then change these guesses and see how that affects the results (“sensitivity analysis”) - or find someone who knows about more sophisticated techniques and more sophisticated software. Holes are very common, for example, with data recorded daily on week days (Monday-Friday) because of public holidays.
+--- 8.3 Seasonal decomposition and forecasting, part I ----------
+How big is the seasonal effect?
+Zero is the no-change value because adding zero makes no change
+For this series, the residuals are small compared to the movement of the trend (which ranges from about 40,000 to 60,000) and the seasonal swings (which go between about plus or minus 20,000). Now this is what's called an "additive decomposition". It assumes the underlying seasonal swings are the same every year and they add to the trend value, as we've seen. They're only useful if the seasonal swings look similar. Next, we'll show an example where the seasonal swings are obviously not constant. This will lead us to another type of decomposition, "multiplicative decomposition".
+--- 8.4 Seasonal decomposition and forecasting, part II ----------
+Note the horizontal line at zero on the additive plot. Adding zero makes no change. Whereas the horizontal line on the multiplicative plot is at one. In a multiplicative world, one is the no-adjustment value because multiplying by one makes no change.
+Here's the forecast for the next two years for Australia. It is projected forward to the trend and the seasonal swings giving the red lines. It's also put confidence bands (in pink) around the forecast.
+The text window gives the numerical values. It's all been done using a statistical technique called the Holt-Winters method. The details are complicated and involve several levels of smoothing. Holt-Winters is the only forecasting method implemented in iNZight.
+Holt-Winters is a good general purpose forecasting method, when the trend is basically monotone (which means it's either rising or it's falling, but it's not doing both).
+--- 8.5 Week 8 glossary ----------
+Check "Articles/1.13-data-to-inzight-glossary.pdf"
+Additive decomposition, Confidence bands, Decomposition plot, Forecast, Holt-Winters method, Multiplicative decomposition, Quarterly data, Residuals, Seasonal patterns, Seasonal series, Time-series data
+--- 8.6 Exercise - Time Series for a single variable ----------
+Check "Exercises/8.06-Time-series-for-a-single-variable.pdf"
+--- 8.7 Quiz - Single series ----------
+Question 1: Seasonality refers to a pattern that repeats over a regular or fixed time period. This time period does not have to be a year. It is often also a week or even a day.
+Question 2:
+--- 8.8 Forecasting ----------
+Check "Articles/8.08-Forecasting.pdf"
+Forecasts are predictions but the word “forecast” is more common in connection with time-series data.
+https://www.otexts.org/fpp/1
+--- 8.9 Comparing series ----------
+ A complementary way of displaying the information gives each country its own graphs. Now we can see the trends for each country much more easily and compare the trends. But to tell anything about relative sizes we have to rely on the scales.
+--- 8.10 Exercise - Time Series analysis for more than one series ----------
+Check "Exercises/8.10-Time-series-analysis-for-more-than-one-series.pdf"
+--- 8.11 Assessment - Time series ----------
+I have no plans to upgrade
+Just skip
+--- 8.12 Full glossary ----------
+Check "Articles/1.13-data-to-inzight-glossary.pdf"
+--- 8.13 Life after the course ----------
+Farewell (or, in Māori, Haere rā)
 
 

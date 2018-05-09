@@ -524,9 +524,80 @@ Just skip
 --- 6.15 Weekly Reflections ----------
 
 
-Week 07 -- MMDD2018 ------------------------------------------------------------
+Week 07 -- 05092018 ------------------------------------------------------------
 RANDOMISED EXPERIMENTS AND THE RANDOMISATION TEST ------------------------------
 --- 7.1 Randomized experiments ----------
+When media reports say something like, taking statins significantly reduces the risk of heart attack, what does the word "significant" mean?
+Then we choose randomly who will be in each treatment group. Apply the treatments, observe the outcomes, and compare the groups.
+This random assignment tends to balance the groups on everything except the treatment they're receiving, so that when we compare treatment groups, we are comparing like with like so that we are conducting a fair test.
+A better design would be first to divide subjects up into age groups. Statisticians would call this "blocking on age." Second, they'd randomise "smoke" or "don't smoke" within an age group (or block) and then make the comparisons between smokers and non-smokers within the same block (groups of children of similar age).
+--- 7.2 Fair tests ----------
+We haven’t talked about the special case of comparing one or more treatments to not being treated at all (“no treatment”) using a control group. Statistically, “no treatment” is just another treatment condition. 
+You may have heard of the placebo effect (there can be surprisingly large changes in an outcome variable just from people knowing they are being treated for something). Control conditions need to allow for the placebo effect.
+--- 7.3 Randomisation variation ----------
+Random assignment of experimental units to treatment groups is the most reliable way people know for constructing fair tests of treatments. But it is by no means perfect. We’ll show you how varied the differences between groups can be simply due to random labelling.
+Randomisation variation is the variability in the difference between the two “group” means produced by random allocation to “groups” (random labelling with group labels) and nothing else.
+As with sampling, every time we multiply the number of points by four, we halve the amount of randomisation variation.
+--- 7.4 Week 7 glossary ----------
+Check "Articles/1.13-data-to-inzight-glossary.pdf"
+Effect size, Experiment, Non-significant, p-value, Practically significant, Randomisation Test, Randomisation variation, Re-randomisation distribution, Re-randomisation, Significance, Significance test, Statistically significant, Tail proportions, Treatment, Treatment group, Type-1 error rate
+--- 7.5 Quiz - Randomisation variation ----------
+Question 1: Treatment groups are balanced when they are similar on all factors other than treatment, not just a single factor (age here).
+Question 2: Randomisation variation is the variability in the difference between the two “group” means produced by random allocation to “groups” (random labelling with group labels) and nothing else.
+--- 7.6 Randomisation test ----------
+Randomisation variation motivates a type of test we do to try to determine whether the effects we've seen in a randomised experiment demonstrate real treatment differences, or whether they could just be "the luck of the draw".
+Take randomized treatment group and re-randomise
+We'll ask for the tail proportion to see how rare this is. It tells us that the luck of the draw gave us 15.92 or bigger, 10 times out of 1,000. That's 1% of the time. Put another way, random reassignment almost always gave us values smaller than this. 99% of the time they were smaller.
+Conventionally, people start concluding something real has probably happened if the tail proportion is about 5% or smaller.
+--- 7.7 Exercise - Using VIT to run a randomisation test ----------
+Check "Exercises/7.07-Using-vit-to-run-a-randomisation.pdf"
+--- 7.8 Quiz - Randomisation test ----------
+Question 1: A single re-randomisation 
+Question 2: Random re-assignment almost always gave us values smaller than our observed difference of 67 million.
+--- 7.9 Percentages and multiple groups ----------
+We're going to look at data from an experiment to compare the effectiveness of drug treatments for addiction to cocaine. 72 addicts were randomised to three treatment groups: Placebo(a dummy treatment) Lithium or Desipramine.
+We see that only 4 of the 24 people on the Placebo treatment were cocaine-free. (That's about 17%.) The rest relapsed and used cocaine again. Six of those on Lithium were cocaine-free (that's 25%) whereas nearly 60% of those on Desipramine remained cocaine-free. On the face of it, Desipramine looks very effective compared to Lithium or Placebo.
+--- 7.10 Exercise - Using VIT to run a randomisation test for proportions ----------
+Check "Exercises/7.10-using-vit-to-run-a-randomisation-test-for-proportions.pdf"
+--- 7.11 Statistical tests ----------
+The randomisation tests you have seen and been using are a special case of what is known as statistical significance tests, or statistical hypothesis tests. (The situations we have worked with correspond to testing the hypothesis that “there are no true differences between the effects of the treatments”.)
+The tail proportions we have been working with correspond to the p-values of significance testing theory (there is a complication about “sided-ness” that we will deal with at the end of this article).
+In experimental situations a large p-value (large tail proportion) means that the luck of the randomisation quite often produces group differences as large or even larger than what we’ve got in our data. In this case the data provides no evidence that there are true treatment-group differences.
+A small p-value means that the luck of the randomisation draw hardly ever produces group differences as large as we’ve got in our data. They are almost always smaller. In this case the data does provide evidence that there are true treatment-group differences.
+Furthermore, the smaller the p-value, the stronger the evidence that true treatment differences exist.
+When should we start to claim “evidence” of true differences? It is quite common practice to start claiming evidence of true differences if the p-value is 5% or smaller. At that point the result is commonly said to be ”statistically significant” .
+https://simplystatistics.org/2013/12/16/a-summary-of-the-evidence-that-most-published-research-is-false/
+https://xkcd.com/882/
+--- 7.12 Out of the Fog and into Power ----------
+The power of a study is the probability that it would detect an effect exists when the true effect was of a nominated size.
+It's like this: a helicopter pilot might say, "If a building's 100 metres high or higher, I want to know that there's a building there. If it's shorter than that, I'm OK with not knowing." So as part of designing a study, we have to specify a minimum effect size at which we'd want to know that a true effect exists. We then ensure that the study uses enough experimental subjects so that if the true state of the world was our specified effect size or larger, we would almost certainly conclude that a treatment difference existed.
+--- 7.13 Assessment - Estimation with confidence ----------
+I have no plans to upgrade
+Just skip
+--- 7.14 Weekly Reflections ----------
+
+
+Week 08 -- MMDD2018 ------------------------------------------------------------
+TIME SERIES --------------------------------------------------------------------
+--- 8.1 Introducing Time Series Data ----------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
